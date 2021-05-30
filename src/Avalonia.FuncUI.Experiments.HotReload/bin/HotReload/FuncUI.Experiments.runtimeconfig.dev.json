@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/dryk/.dotnet/store/|arch|/|tfm|",
+      "/Users/dryk/.nuget/packages"
+    ]
+  }
+}

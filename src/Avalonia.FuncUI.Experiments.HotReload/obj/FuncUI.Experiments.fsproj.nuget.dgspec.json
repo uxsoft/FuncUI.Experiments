@@ -1,0 +1,89 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/dryk/RiderProjects/FuncUI.Experiments/FuncUI.Experiments.fsproj": {}
+  },
+  "projects": {
+    "/Users/dryk/RiderProjects/FuncUI.Experiments/FuncUI.Experiments.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/dryk/RiderProjects/FuncUI.Experiments/FuncUI.Experiments.fsproj",
+        "projectName": "FuncUI.Experiments",
+        "projectPath": "/Users/dryk/RiderProjects/FuncUI.Experiments/FuncUI.Experiments.fsproj",
+        "packagesPath": "/Users/dryk/.nuget/packages/",
+        "outputPath": "/Users/dryk/RiderProjects/FuncUI.Experiments/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/dryk/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[0.9.7, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[5.0.0-beta.*, )",
+              "generatePathProperty": true
+            },
+            "JaggerJo.Avalonia.FuncUI": {
+              "target": "Package",
+              "version": "[0.4.0, )",
+              "generatePathProperty": true
+            },
+            "JaggerJo.Avalonia.FuncUI.DSL": {
+              "target": "Package",
+              "version": "[0.4.0, )",
+              "generatePathProperty": true
+            },
+            "JaggerJo.Avalonia.FuncUI.Elmish": {
+              "target": "Package",
+              "version": "[0.4.0, )",
+              "generatePathProperty": true
+            },
+            "Ply": {
+              "target": "Package",
+              "version": "[0.3.1, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.100-preview.4.21255.9/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

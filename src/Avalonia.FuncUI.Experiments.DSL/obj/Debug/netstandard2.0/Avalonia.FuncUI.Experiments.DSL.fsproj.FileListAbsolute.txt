@@ -1,0 +1,8 @@
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/obj/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.fsproj.AssemblyReference.cache
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/obj/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.AssemblyInfoInputs.cache
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/obj/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.AssemblyInfo.fs
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/bin/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.deps.json
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/bin/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.dll
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/bin/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.pdb
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/obj/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.dll
+/Users/dryk/RiderProjects/FuncUI.Experiments/src/Avalonia.FuncUI.Experiments.DSL/obj/Debug/netstandard2.0/Avalonia.FuncUI.Experiments.DSL.pdb
