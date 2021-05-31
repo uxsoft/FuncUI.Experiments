@@ -7,6 +7,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Avalonia.FuncUI.Experiments
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Avalonia.FuncUI.Experiments.DSL", "src\Avalonia.FuncUI.Experiments.DSL\Avalonia.FuncUI.Experiments.DSL.fsproj", "{3F619605-74C6-4068-B5C2-C8A50B1DFE38}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Avalonia.FuncUI.Experiments.TestApp", "src\Avalonia.FuncUI.Experiments.TestApp\Avalonia.FuncUI.Experiments.TestApp.fsproj", "{BDEAFF24-0D53-400C-8574-81269717173E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{3F619605-74C6-4068-B5C2-C8A50B1DFE38}.Release|x64.Build.0 = Release|Any CPU
 		{3F619605-74C6-4068-B5C2-C8A50B1DFE38}.Release|x86.ActiveCfg = Release|Any CPU
 		{3F619605-74C6-4068-B5C2-C8A50B1DFE38}.Release|x86.Build.0 = Release|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Debug|x64.Build.0 = Debug|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Debug|x86.Build.0 = Debug|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Release|x64.ActiveCfg = Release|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Release|x64.Build.0 = Release|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Release|x86.ActiveCfg = Release|Any CPU
+		{BDEAFF24-0D53-400C-8574-81269717173E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

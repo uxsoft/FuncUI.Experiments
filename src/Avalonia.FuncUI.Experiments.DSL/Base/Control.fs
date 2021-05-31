@@ -1,34 +1,21 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+namespace Avalonia.FuncUI.Experiments.DSL.Control
+  
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.InputElement
+open Avalonia.FuncUI.Builder
 
-[<AutoOpen>]
-module Control =  
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+type ControlBuilder<'t when 't :> Control>() =
+    inherit InputElementBuilder<'t>()
     
-    let create (attrs: IAttr<Control> list): IView<Control> =
-        ViewBuilder.Create<Control>(attrs)
+    [<CustomOperation("focusAdorner")>] 
+    member _.focusAdorner<'t, 'c when 'c :> IControl>(x: DSLElement<'t>, value: ITemplate<'c>) =
+        x.attr <| AttrBuilder<'t>.CreateProperty<ITemplate<'c>>(Control.FocusAdornerProperty, value, ValueNone)
+                                                      
+    [<CustomOperation("tag")>]
+    member _.tag<'t>(x: DSLElement<'t>, value: obj) =
+        x.attr <| AttrBuilder<'t>.CreateProperty<obj>(Control.TagProperty, value, ValueNone)
     
-    type Control with
-        static member focusAdorner<'t, 'c when 't :> Control and 'c :> IControl>(value: ITemplate<'c>) =
-            AttrBuilder<'t>.CreateProperty<ITemplate<'c>>(Control.FocusAdornerProperty, value, ValueNone)
-            
-        static member tag<'t when 't :> Control>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(Control.TagProperty, value, ValueNone)
-
-        static member contextMenu<'t when 't :> Control>(menuView: IView<ContextMenu> option) =
-            let view =
-                match menuView with
-                | Some view -> Some (view :> IView)
-                | None -> None
-            
-            // TODO: think about exposing less generic IView<'c> 
-            AttrBuilder<'t>.CreateContentSingle(Control.ContextMenuProperty, view)
-            
-        static member contextMenu<'t when 't :> Control>(menuView: IView<ContextMenu>) =
-            AttrBuilder<'t>.CreateContentSingle(Control.ContextMenuProperty, Some (menuView :> IView))
-        
-        static member contextMenu<'t when 't :> Control>(menu: ContextMenu) =
-            AttrBuilder<'t>.CreateProperty<ContextMenu>(Control.ContextMenuProperty, menu, ValueNone)
-           
-           
+    [<CustomOperation("contextMenu")>] 
+    member _.contextMenu<'t>(x: DSLElement<'t>, menu: ContextMenu) =
+        x.attr <| AttrBuilder<'t>.CreateProperty<ContextMenu>(Control.ContextMenuProperty, menu, ValueNone)

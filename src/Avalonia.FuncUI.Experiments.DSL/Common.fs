@@ -1,6 +1,7 @@
 module Avalonia.FuncUI.Experiments.DSL.Common
 
 open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
 
 type DSLElement<'TView> =
     { Attributes: IAttr<'TView> list
@@ -39,5 +40,6 @@ type DSLBuilder<'TView>() =
         { Attributes = elements |> Seq.map (fun i -> i.Attributes) |> List.concat
           Children =  elements |> Seq.map (fun i -> i.Children) |> List.concat }
 
-    
+    member _.Run(x: DSLElement<'t>) = 
+        ViewBuilder.Create<'t>(x.Attributes)
     
