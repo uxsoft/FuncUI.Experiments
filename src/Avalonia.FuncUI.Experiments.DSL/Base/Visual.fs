@@ -11,33 +11,33 @@ type VisualBuilder<'t when 't :> Visual>() =
     inherit StyledElementBuilder<'t>()
 
     [<CustomOperation("clipToBounds")>]
-    member _.clipToBounds<'t>(x: DSLElement<'t>, value: bool) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<bool>(Visual.ClipToBoundsProperty, value, ValueNone)
+    member _.clipToBounds<'t>(x: IAttr<'t> list, value: bool) =
+        x @ [  AttrBuilder<'t>.CreateProperty<bool>(Visual.ClipToBoundsProperty, value, ValueNone) ]
     
     [<CustomOperation("clip")>]
-    member _.clip<'t>(x: DSLElement<'t>, mask: Geometry) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<Geometry>(Visual.ClipProperty, mask, ValueNone)
+    member _.clip<'t>(x: IAttr<'t> list, mask: Geometry) =
+        x @ [  AttrBuilder<'t>.CreateProperty<Geometry>(Visual.ClipProperty, mask, ValueNone) ]
         
     [<CustomOperation("isVisible")>]
-    member _.isVisible<'t>(x: DSLElement<'t>, visible: bool) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<bool>(Visual.IsVisibleProperty, visible, ValueNone)
+    member _.isVisible<'t>(x: IAttr<'t> list, visible: bool) =
+        x @ [  AttrBuilder<'t>.CreateProperty<bool>(Visual.IsVisibleProperty, visible, ValueNone) ]
 
     [<CustomOperation("opacity")>]
-    member _.opacity<'t>(x: DSLElement<'t>, value: float) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<float>(Visual.IsVisibleProperty, value, ValueNone)
+    member _.opacity<'t>(x: IAttr<'t> list, value: float) =
+        x @ [  AttrBuilder<'t>.CreateProperty<float>(Visual.IsVisibleProperty, value, ValueNone) ]
   
     [<CustomOperation("opacityMask")>]
-    member _.opacityMask<'t>(x: DSLElement<'t>, value: IBrush) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<IBrush>(Visual.OpacityMaskProperty, value, ValueNone)
+    member _.opacityMask<'t>(x: IAttr<'t> list, value: IBrush) =
+        x @ [  AttrBuilder<'t>.CreateProperty<IBrush>(Visual.OpacityMaskProperty, value, ValueNone) ]
 
     [<CustomOperation("renderTransform")>]
-    member _.renderTransform<'t>(x: DSLElement<'t>, transform: Transform) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<Transform>(Visual.RenderTransformProperty, transform, ValueNone)
+    member _.renderTransform<'t>(x: IAttr<'t> list, transform: Transform) =
+        x @ [  AttrBuilder<'t>.CreateProperty<Transform>(Visual.RenderTransformProperty, transform, ValueNone) ]
 
     [<CustomOperation("renderTransformOrigin")>]
-    member _.renderTransformOrigin<'t>(x: DSLElement<'t>, origin: RelativePoint) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<RelativePoint>(Visual.RenderTransformOriginProperty, origin, ValueNone)
+    member _.renderTransformOrigin<'t>(x: IAttr<'t> list, origin: RelativePoint) =
+        x @ [  AttrBuilder<'t>.CreateProperty<RelativePoint>(Visual.RenderTransformOriginProperty, origin, ValueNone) ]
         
     [<CustomOperation("zIndex")>]
-    member _.zIndex<'t>(x: DSLElement<'t>, index: int) =
-        x.attr <| AttrBuilder<'t>.CreateProperty<int>(Visual.ZIndexProperty, index, ValueNone)
+    member _.zIndex<'t>(x: IAttr<'t> list, index: int) =
+        x @ [  AttrBuilder<'t>.CreateProperty<int>(Visual.ZIndexProperty, index, ValueNone) ]

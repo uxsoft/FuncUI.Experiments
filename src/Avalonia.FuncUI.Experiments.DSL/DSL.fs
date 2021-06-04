@@ -1,3 +1,5 @@
 module Avalonia.FuncUI.Experiments.DSL.DSL
 
-let checkBox = CheckBox.CheckBoxBuilder()
+open Avalonia.Controls
+
+let button = Button.ButtonBuilder<Button>()

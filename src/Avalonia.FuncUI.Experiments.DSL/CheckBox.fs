@@ -5,9 +5,6 @@ open Avalonia.Controls
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 
-type CheckBoxBuilder() = 
-    inherit DSLBuilder<CheckBox>()
-
-    member _.Run(x: DSLElement<CheckBox>) = 
-        ViewBuilder.Create<CheckBox>(x.Attributes)
-
+//type CheckBoxBuilder() = 
+//    inherit ToggleButtonBuilder<CheckBox>()
+// TODO build toggleButtonBuilder

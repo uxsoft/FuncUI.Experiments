@@ -1,91 +1,60 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.ContentPresenter
 
-[<AutoOpen>]
-module ContentPresenter =
-    open Avalonia
-    open Avalonia.Controls.Templates
-    open Avalonia.Layout    
-    open Avalonia.Controls.Presenters
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-    open Avalonia.Media
-    open Avalonia.Media.Immutable
-    
-    let create (attrs: IAttr<ContentPresenter> list): IView<ContentPresenter> =
-        ViewBuilder.Create<ContentPresenter>(attrs)
-    
-    type ContentPresenter with
-        static member background<'t when 't :> ContentPresenter>(brush: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(ContentPresenter.BackgroundProperty, brush, ValueNone)
-            
-        static member background<'t when 't :> ContentPresenter>(color: string) =
-            Color.Parse(color) |> ImmutableSolidColorBrush |> ContentPresenter.background
+open Avalonia
+open Avalonia.Controls.Templates
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Control
+open Avalonia.Layout    
+open Avalonia.Controls.Presenters
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+open Avalonia.Media
+open Avalonia.Media.Immutable
 
-        static member borderBrush<'t when 't :> ContentPresenter>(brush: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(ContentPresenter.BorderBrushProperty, brush, ValueNone)
-            
-        static member borderBrush<'t when 't :> ContentPresenter>(color: string) =
-            Color.Parse(color) |> ImmutableSolidColorBrush |> ContentPresenter.borderBrush
-            
-        static member borderThickness<'t when 't :> ContentPresenter>(value: Thickness) =
-            AttrBuilder<'t>.CreateProperty<Thickness>(ContentPresenter.BorderThicknessProperty, value, ValueNone)
-            
-        static member borderThickness<'t when 't :> ContentPresenter>(value: float) =
-            Thickness(value) |> ContentPresenter.borderThickness
-            
-        static member borderThickness<'t when 't :> ContentPresenter>(horizontal: float, vertical: float) =
-            Thickness(horizontal, vertical) |> ContentPresenter.borderThickness
-            
-        static member borderThickness<'t when 't :> ContentPresenter>(left: float, top: float, right: float, bottom: float) =
-            Thickness(left, top, right, bottom) |> ContentPresenter.borderThickness
+type ContentPresenterBuilder<'t when 't :> ContentPresenter>() =
+    inherit ControlBuilder<'t>()
+    
+    [<CustomOperation("background")>]
+    member _.background<'t>(x: IAttr<'t> list, brush: IBrush) =
+        x @ [  AttrBuilder<'t>.CreateProperty<IBrush>(ContentPresenter.BackgroundProperty, brush, ValueNone) ]
+
+    [<CustomOperation("borderBrush")>]
+    member _.borderBrush<'t>(x: IAttr<'t> list, brush: IBrush) =
+        x @ [  AttrBuilder<'t>.CreateProperty<IBrush>(ContentPresenter.BorderBrushProperty, brush, ValueNone) ]
         
-        static member boxShadows<'t when 't :> ContentPresenter>(value: BoxShadows) =
-            AttrBuilder<'t>.CreateProperty(ContentPresenter.BoxShadowProperty, value, ValueNone)
-            
-        static member boxShadow<'t when 't :> ContentPresenter>(value: BoxShadow) =
-            value |> BoxShadows |> ContentPresenter.boxShadows
-            
-        static member cornerRadius<'t when 't :> ContentPresenter>(value: CornerRadius) =
-            AttrBuilder<'t>.CreateProperty<CornerRadius>(ContentPresenter.CornerRadiusProperty, value, ValueNone)
-            
-        static member cornerRadius<'t when 't :> ContentPresenter>(value: float) =
-            CornerRadius(value) |> ContentPresenter.cornerRadius
-                
-        static member cornerRadius<'t when 't :> ContentPresenter>(horizontal: float, vertical: float) =
-            CornerRadius(horizontal, vertical) |> ContentPresenter.cornerRadius
-            
-        static member cornerRadius<'t when 't :> ContentPresenter>(left: float, top: float, right: float, bottom: float) =
-            CornerRadius(left, right, top, bottom) |> ContentPresenter.cornerRadius
-            
-        static member child<'t when 't :> ContentPresenter>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(ContentPresenter.ChildProperty, value)
+    [<CustomOperation("borderThickness")>]
+    member _.borderThickness<'t>(x: IAttr<'t> list, value: Thickness) =
+        x @ [  AttrBuilder<'t>.CreateProperty<Thickness>(ContentPresenter.BorderThicknessProperty, value, ValueNone) ]
+    
+    [<CustomOperation("boxShadows")>]
+    member _.boxShadows<'t>(x: IAttr<'t> list, value: BoxShadows) =
+        x @ [  AttrBuilder<'t>.CreateProperty(ContentPresenter.BoxShadowProperty, value, ValueNone) ]
+        
+    [<CustomOperation("cornerRadius")>]
+    member _.cornerRadius<'t>(x: IAttr<'t> list, value: CornerRadius) =
+        x @ [  AttrBuilder<'t>.CreateProperty<CornerRadius>(ContentPresenter.CornerRadiusProperty, value, ValueNone) ]
+        
+    [<CustomOperation("child")>]
+    member _.child<'t>(x: IAttr<'t> list, value: IView) =
+        x @ [  AttrBuilder<'t>.CreateContentSingle(ContentPresenter.ChildProperty, Some value) ]
 
-        static member child<'t when 't :> ContentPresenter>(value: IView) =
-            value |> Some |> ContentPresenter.child
-                 
-        static member content<'t when 't :> ContentPresenter>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(ContentPresenter.ContentProperty, value)
+    [<CustomOperation("content")>]
+    member _.content<'t>(x: IAttr<'t> list, value: IView) =
+        x @ [  AttrBuilder<'t>.CreateContentSingle(ContentPresenter.ContentProperty, Some value) ]
 
-        static member content<'t when 't :> ContentPresenter>(value: IView) =
-            value |> Some |> ContentPresenter.content
-             
-        static member contentTemplate<'t when 't :> ContentPresenter>(template: IDataTemplate) =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(ContentPresenter.ContentTemplateProperty, template, ValueNone)
-            
-        static member horizontalContentAlignment<'t when 't :> ContentPresenter>(value: HorizontalAlignment) =
-            AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentPresenter.HorizontalContentAlignmentProperty, value, ValueNone)
-            
-        static member verticalContentAlignment<'t when 't :> ContentPresenter>(value: VerticalAlignment) =
-            AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentPresenter.VerticalContentAlignmentProperty, value, ValueNone)
-            
-        static member padding<'t when 't :> ContentPresenter>(value: Thickness) =
-            AttrBuilder<'t>.CreateProperty<Thickness>(ContentPresenter.PaddingProperty, value, ValueNone)
-            
-        static member padding<'t when 't :> ContentPresenter>(value: float) =
-            Thickness(value) |> ContentPresenter.padding
-            
-        static member padding<'t when 't :> ContentPresenter>(horizontal: float, vertical: float) =
-            Thickness(horizontal, vertical) |> ContentPresenter.padding
-            
-        static member padding<'t when 't :> ContentPresenter>(left: float, top: float, right: float, bottom: float) =
-            Thickness(left, top, right, bottom) |> ContentPresenter.padding 
+    [<CustomOperation("contentTemplate")>]
+    member _.contentTemplate<'t>(x: IAttr<'t> list, template: IDataTemplate) =
+        x @ [  AttrBuilder<'t>.CreateProperty<IDataTemplate>(ContentPresenter.ContentTemplateProperty, template, ValueNone) ]
+        
+    [<CustomOperation("horizontalContentAlignment")>]
+    member _.horizontalContentAlignment<'t>(x: IAttr<'t> list, value: HorizontalAlignment) =
+        x @ [  AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentPresenter.HorizontalContentAlignmentProperty, value, ValueNone) ]
+        
+    [<CustomOperation("verticalContentAlignment")>]
+    member _.verticalContentAlignment<'t>(x: IAttr<'t> list, value: VerticalAlignment) =
+        x @ [  AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentPresenter.VerticalContentAlignmentProperty, value, ValueNone) ]
+        
+    [<CustomOperation("padding")>]
+    member _.padding<'t>(x: IAttr<'t> list, value: Thickness) =
+        x @ [  AttrBuilder<'t>.CreateProperty<Thickness>(ContentPresenter.PaddingProperty, value, ValueNone) ]
+        

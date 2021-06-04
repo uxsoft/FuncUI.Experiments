@@ -2,36 +2,44 @@ module Avalonia.FuncUI.Experiments.DSL.Button
 
 open System.Windows.Input 
 open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.ContentControl
 open Avalonia.Interactivity
 open Avalonia.Input
 open Avalonia.FuncUI.Builder
 open Avalonia.FuncUI.Types
-
-let create (attrs: IAttr<Button> list): IView<Button> =
-    ViewBuilder.Create<Button>(attrs)
  
-type ButtonBuilder() =
-
-    static member clickMode<'t when 't :> Button>(value: ClickMode) =
-        AttrBuilder<'t>.CreateProperty<ClickMode>(Button.ClickModeProperty, value, ValueNone)
+type ButtonBuilder<'t when 't :> Button>() =
+    inherit ContentControlBuilder<'t>()
+    
+    [<CustomOperation("clickMode")>] 
+    member _.clickMode<'t>(x: IAttr<'t> list, value: ClickMode) =
+        x @ [ AttrBuilder<'t>.CreateProperty<ClickMode>(Button.ClickModeProperty, value, ValueNone) ]
         
-    static member command<'t when 't :> Button>(value: ICommand) =
-        AttrBuilder<'t>.CreateProperty<ICommand>(Button.CommandProperty, value, ValueNone)
+    [<CustomOperation("command")>] 
+    member _.command<'t>(x: IAttr<'t> list, value: ICommand) =
+        x @ [ AttrBuilder<'t>.CreateProperty<ICommand>(Button.CommandProperty, value, ValueNone) ]
         
-    static member hotKey<'t when 't :> Button>(value: KeyGesture) =
-        AttrBuilder<'t>.CreateProperty<KeyGesture>(Button.HotKeyProperty, value, ValueNone)
+    [<CustomOperation("hotKey")>] 
+    member _.hotKey<'t>(x: IAttr<'t> list, value: KeyGesture) =
+        x @ [ AttrBuilder<'t>.CreateProperty<KeyGesture>(Button.HotKeyProperty, value, ValueNone) ]
         
-    static member commandParameter<'t when 't :> Button>(value: obj) =
-        AttrBuilder<'t>.CreateProperty<obj>(Button.CommandParameterProperty, value, ValueNone)
+    [<CustomOperation("commandParameter")>] 
+    member _.commandParameter<'t>(x: IAttr<'t> list, value: obj) =
+        x @ [ AttrBuilder<'t>.CreateProperty<obj>(Button.CommandParameterProperty, value, ValueNone) ]
         
-    static member isDefault<'t when 't :> Button>(value: bool) =
-        AttrBuilder<'t>.CreateProperty<bool>(Button.IsDefaultProperty, value, ValueNone)
+    [<CustomOperation("isDefault")>] 
+    member _.isDefault<'t>(x: IAttr<'t> list, value: bool) =
+        x @ [ AttrBuilder<'t>.CreateProperty<bool>(Button.IsDefaultProperty, value, ValueNone) ]
         
-    static member isPressed<'t when 't :> Button>(value: bool) =
-        AttrBuilder<'t>.CreateProperty<bool>(Button.IsPressedProperty, value, ValueNone)
+    [<CustomOperation("isPressed")>] 
+    member _.isPressed<'t>(x: IAttr<'t> list, value: bool) =
+        x @ [ AttrBuilder<'t>.CreateProperty<bool>(Button.IsPressedProperty, value, ValueNone) ]
         
-    static member onIsPressedChanged<'t when 't :> Button>(func: bool -> unit, ?subPatchOptions) =
-        AttrBuilder<'t>.CreateSubscription<bool>(Button.IsPressedProperty, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("onIsPressedChanged")>] 
+    member _.onIsPressedChanged<'t>(x: IAttr<'t> list, func: bool -> unit, ?subPatchOptions) =
+        x @ [ AttrBuilder<'t>.CreateSubscription<bool>(Button.IsPressedProperty, func, ?subPatchOptions = subPatchOptions) ]
         
-    static member onClick<'t when 't :> Button>(func: RoutedEventArgs -> unit, ?subPatchOptions) =
-        AttrBuilder<'t>.CreateSubscription<RoutedEventArgs>(Button.ClickEvent, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("onClick")>] 
+    member _.onClick<'t>(x: IAttr<'t> list, func: RoutedEventArgs -> unit, ?subPatchOptions) =
+        x @ [ AttrBuilder<'t>.CreateSubscription<RoutedEventArgs>(Button.ClickEvent, func, ?subPatchOptions = subPatchOptions) ]

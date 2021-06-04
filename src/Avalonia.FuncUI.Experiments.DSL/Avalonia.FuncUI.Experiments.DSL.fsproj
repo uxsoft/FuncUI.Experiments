@@ -25,9 +25,10 @@
         <Compile Include="Base\Control.fs" />
         <Compile Include="Base\Panel.fs" />
         <Compile Include="Base\ContentPresenter.fs" />
-        <Compile Include="Base\RenderOptions.fs" />
 
         <Compile Include="Primitives\TemplatedControl.fs" />
+
+        <Compile Include="Primitives\ContentControl.fs" />
         <Compile Include="Primitives\HeaderedContentControl.fs" />
         <Compile Include="Primitives\HeaderedSelectingItemsControl.fs" />
         <Compile Include="Primitives\SelectingItemsControl.fs" />
@@ -65,7 +66,6 @@
         <Compile Include="TickBar.fs" />
 
         <Compile Include="ItemsControl.fs" />
-        <Compile Include="ContentControl.fs" />
         <Compile Include="AutoCompleteBox.fs" />
         <Compile Include="Button.fs" />
         <Compile Include="ToggleButton.fs" />

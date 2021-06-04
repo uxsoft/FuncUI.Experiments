@@ -1,7 +1,12 @@
 ﻿namespace Avalonia.FuncUI.Experiments.TestApp
 
+open Avalonia.Controls.Presenters
 open Avalonia.FuncUI.DSL
+open Avalonia.FuncUI.Experiments.DSL.Button
+open Avalonia.FuncUI.Experiments.DSL.ContentPresenter
+open Avalonia.FuncUI.Experiments.DSL.Control
 open Avalonia.FuncUI.Experiments.DSL.Layoutable
+open Avalonia.FuncUI.Experiments.DSL.Panel
 open Avalonia.Layout
 open Avalonia.Controls
 
@@ -17,12 +22,14 @@ module Counter =
         | Decrement -> { state with count = state.count - 1 }
         | Reset -> init
     
-    let layoutable = LayoutableBuilder<Layoutable>()
+    let button = ButtonBuilder<Button>()
     
     let view (state: State) (dispatch) =
-        layoutable {
-            ()
+        let tree = button {
+            "my button"
         }
+        printf $"{tree}"
+        tree
 //        DockPanel.create [
 //            DockPanel.children [
 //                Button.create [
