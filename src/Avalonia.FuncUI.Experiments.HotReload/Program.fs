@@ -37,7 +37,6 @@ type HotHostControl<'TModel, 'TMsg, 'TView when 'TModel: equality and 'TView :> 
     interface IViewHost with
         member this.Update next =
             update next
-    
 
 type MainWindow() as this =
     inherit Window()

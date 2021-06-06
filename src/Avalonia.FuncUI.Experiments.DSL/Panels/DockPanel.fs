@@ -1,18 +1,14 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.DockPanel
 
-[<AutoOpen>]
-module DockPanel =  
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Panel
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+
+type DockPanelBuilder<'t when 't :> DockPanel>() =
+    inherit PanelBuilder<'t>()
     
-    let create (attrs: IAttr<DockPanel> list): IView<DockPanel> =
-        ViewBuilder.Create<DockPanel>(attrs)
-    
-    type Control with
-        static member dock<'t when 't :> Control>(dock: Dock) =
-            AttrBuilder<'t>.CreateProperty<Dock>(DockPanel.DockProperty, dock, ValueNone)
-    
-    type DockPanel with
-        static member lastChildFill<'t when 't :> DockPanel>(fill: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(DockPanel.LastChildFillProperty, fill, ValueNone)
+    [<CustomOperation("lastChildFill")>]
+    member _.lastChildFill<'t>(x: DSLElement<'t>, fill: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(DockPanel.LastChildFillProperty, fill, ValueNone) ]

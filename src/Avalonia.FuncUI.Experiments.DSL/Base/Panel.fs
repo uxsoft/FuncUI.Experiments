@@ -10,13 +10,14 @@ open Avalonia.FuncUI.Experiments.DSL.Control
 
 type PanelBuilder<'t when 't :> Panel>() =
     inherit ControlBuilder<'t>()
-
-    [<CustomOperation("children")>]
-    member _.children<'t>(x: IAttr<'t> list, value: IView list) =
+    
+    override _.Flatten x =
+        let views = x.Children |> List.choose (function | :? IView as view -> Some view | _ -> None)
         let getter : ('t -> obj) = (fun control -> control.Children :> obj)
-        x @ [ AttrBuilder<'t>.CreateContentMultiple("Children", ValueSome getter, ValueNone, value) ]
-        
+        let childrenProp = AttrBuilder<'t>.CreateContentMultiple("Children", ValueSome getter, ValueNone, views)
+        x.Attributes @ [ childrenProp ]
+            
     [<CustomOperation("background")>]
-    member _.background<'t>(x: IAttr<'t> list, value: IBrush) =
-        x @ [ AttrBuilder<'t>.CreateProperty<IBrush>(Panel.BackgroundProperty, value, ValueNone) ]
+    member _.background<'t>(x: DSLElement<'t>, value: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(Panel.BackgroundProperty, value, ValueNone) ]
         

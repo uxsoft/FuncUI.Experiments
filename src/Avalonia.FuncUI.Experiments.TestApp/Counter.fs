@@ -9,6 +9,7 @@ open Avalonia.FuncUI.Experiments.DSL.Layoutable
 open Avalonia.FuncUI.Experiments.DSL.Panel
 open Avalonia.Layout
 open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.DSL
 
 module Counter =    
     type State = { count : int }
@@ -22,14 +23,25 @@ module Counter =
         | Decrement -> { state with count = state.count - 1 }
         | Reset -> init
     
-    let button = ButtonBuilder<Button>()
     
     let view (state: State) (dispatch) =
-        let tree = button {
-            "my button"
+        dockPanel {
+            button {
+                dock Dock.Bottom
+                onClick (fun _ -> dispatch Reset)
+                "reset"
+            }
+            button {
+                dock Dock.Bottom
+                onClick (fun _ -> dispatch Decrement)
+                "-"
+            }
+            button {
+                dock Dock.Bottom
+                onClick (fun _ -> dispatch Increment)
+                "+"
+            }
         }
-        printf $"{tree}"
-        tree
 //        DockPanel.create [
 //            DockPanel.children [
 //                Button.create [
