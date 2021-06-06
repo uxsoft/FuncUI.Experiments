@@ -11,31 +11,37 @@ open Avalonia.Layout
 type ContentControlBuilder<'t when 't :> ContentControl>() =
     inherit TemplatedControlBuilder<'t>()
     
-    member inline x.Yield(text: string) =
-        [ AttrBuilder<'t>.CreateProperty<string>(ContentControl.ContentProperty, text, ValueNone) ]
-    
-    member inline x.Yield(child: obj) =
-        [ AttrBuilder<'t>.CreateProperty<obj>(ContentControl.ContentProperty, child, ValueNone) ]
+    override _.Flatten x =
+        match x.Children |> List.tryLast with
+        | None -> x.Attributes
+        | Some lastChild -> 
+            let contentProp =
+                match lastChild with
+                | :? string as text ->
+                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, text, ValueNone)
+                | :? IView as view ->
+                    AttrBuilder<'t>.CreateContentSingle(ContentControl.ContentProperty, Some view)
+                | other ->
+                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, other, ValueNone)
         
-    member inline x.Yield(child: IView) =
-        [ AttrBuilder<'t>.CreateContentSingle(ContentControl.ContentProperty, Some child) ]
+            x.Attributes @ [ contentProp ]
             
     [<CustomOperation("contentTemplate")>] 
-    member _.contentTemplate<'t>(x: IAttr<'t> list, value: IDataTemplate) =
-        x @ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(ContentControl.ContentTemplateProperty, value, ValueNone) ]
+    member _.contentTemplate<'t>(x: DSLElement<'t>, value: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(ContentControl.ContentTemplateProperty, value, ValueNone) ]
 
     [<CustomOperation("horizontalAlignment")>] 
-    member _.horizontalAlignment<'t>(x: IAttr<'t> list, value: HorizontalAlignment) =
-        x @ [ AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentControl.HorizontalAlignmentProperty, value, ValueNone) ]
+    member _.horizontalAlignment<'t>(x: DSLElement<'t>, value: HorizontalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentControl.HorizontalAlignmentProperty, value, ValueNone) ]
         
     [<CustomOperation("verticalAlignment")>] 
-    member _.verticalAlignment<'t>(x: IAttr<'t> list, value: VerticalAlignment) =
-        x @ [ AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentControl.VerticalAlignmentProperty, value, ValueNone) ]
+    member _.verticalAlignment<'t>(x: DSLElement<'t>, value: VerticalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentControl.VerticalAlignmentProperty, value, ValueNone) ]
     
     [<CustomOperation("horizontalContentAlignment")>] 
-    member _.horizontalContentAlignment<'t>(x: IAttr<'t> list, value: HorizontalAlignment) =
-        x @ [ AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentControl.HorizontalContentAlignmentProperty, value, ValueNone) ]
+    member _.horizontalContentAlignment<'t>(x: DSLElement<'t>, value: HorizontalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentControl.HorizontalContentAlignmentProperty, value, ValueNone) ]
 
     [<CustomOperation("verticalContentAlignment")>] 
-    member _.verticalContentAlignment<'t>(x: IAttr<'t> list, value: VerticalAlignment) =
-        x @ [ AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentControl.VerticalContentAlignmentProperty, value, ValueNone) ]
+    member _.verticalContentAlignment<'t>(x: DSLElement<'t>, value: VerticalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentControl.VerticalContentAlignmentProperty, value, ValueNone) ]
