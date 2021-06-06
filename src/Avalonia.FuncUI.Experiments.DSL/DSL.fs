@@ -6,3 +6,4 @@ let dockPanel = DockPanel.DockPanelBuilder<DockPanel>()
 
 let button = Button.ButtonBuilder<Button>()
 
+let textBlock = TextBlock.TextBlockBuilder<TextBlock>()

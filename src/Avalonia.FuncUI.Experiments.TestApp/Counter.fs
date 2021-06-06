@@ -26,6 +26,15 @@ module Counter =
     
     let view (state: State) (dispatch) =
         dockPanel {
+            lastChildFill false
+            
+            textBlock {
+                dock Dock.Top
+                fontSize 48.0
+                verticalAlignment VerticalAlignment.Center
+                horizontalAlignment HorizontalAlignment.Center
+                text (string state.count)
+            }
             button {
                 dock Dock.Bottom
                 onClick (fun _ -> dispatch Reset)
@@ -41,30 +50,4 @@ module Counter =
                 onClick (fun _ -> dispatch Increment)
                 "+"
             }
-        }
-//        DockPanel.create [
-//            DockPanel.children [
-//                Button.create [
-//                    Button.dock Dock.Bottom
-//                    Button.onClick (fun _ -> dispatch Reset)
-//                    Button.content "reset"
-//                ]                
-//                Button.create [
-//                    Button.dock Dock.Bottom
-//                    Button.onClick (fun _ -> dispatch Decrement)
-//                    Button.content "-"
-//                ]
-//                Button.create [
-//                    Button.dock Dock.Bottom
-//                    Button.onClick (fun _ -> dispatch Increment)
-//                    Button.content "+"
-//                ]
-//                TextBlock.create [
-//                    TextBlock.dock Dock.Top
-//                    TextBlock.fontSize 48.0
-//                    TextBlock.verticalAlignment VerticalAlignment.Center
-//                    TextBlock.horizontalAlignment HorizontalAlignment.Center
-//                    TextBlock.text (string state.count)
-//                ]
-//            ]
-//        ]       
+        }   
