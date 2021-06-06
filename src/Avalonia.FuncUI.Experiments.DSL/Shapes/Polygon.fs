@@ -1,20 +1,16 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Polygon
 
-[<AutoOpen>]
-module Polygon =
-    open System.Collections.Generic
-    open Avalonia
-    open Avalonia.Controls.Shapes
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-    
-    let create (attrs: IAttr<Polygon> list): IView<Polygon> =
-        ViewBuilder.Create<Polygon>(attrs)
-     
-    type Polygon with
+open System.Collections.Generic
+open Avalonia
+open Avalonia.Controls.Shapes
+open Avalonia.FuncUI.Builder
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Shape
+open Avalonia.FuncUI.Types
+ 
+type PolygonBuilder<'t when 't :> Polygon>() =
+    inherit ShapeBuilder<'t>()
 
-        static member points<'t when 't :> Polygon>(points: IList<Point>) =
-            AttrBuilder<'t>.CreateProperty<IList<Point>>(Polygon.PointsProperty, points, ValueNone)
-            
-        static member points<'t when 't :> Polygon>(points: Point list) =
-            points |> ResizeArray |> Polygon.points
+    [<CustomOperation("points")>]
+    member _.points<'t>(x: DSLElement<'t>, points: IList<Point>) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IList<Point>>(Polygon.PointsProperty, points, ValueNone) ]

@@ -1,22 +1,24 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.ItemsRepeater
 
-[<AutoOpen>]
-module ItemsRepeater =
-    open System.Collections
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-    open Avalonia.Controls.Templates
+open System.Collections
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Panel
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+open Avalonia.Controls.Templates
+
+type ItemsRepeaterBuilder<'t when 't :> ItemsRepeater>() =
+    inherit PanelBuilder<'t>()
     
-    let create (attrs : IAttr<ItemsRepeater> list): IView<ItemsRepeater> =
-        ViewBuilder.Create<ItemsRepeater>(attrs)
+    [<CustomOperation("viewItems")>] 
+    member _.viewItems<'t>(x: DSLElement<'t>, views: List<IView>) =
+        x @@ [ AttrBuilder<'t>.CreateContentMultiple(ItemsRepeater.ItemsProperty, views) ]
+    
+    [<CustomOperation("dataItems")>] 
+    member _.dataItems<'t>(x: DSLElement<'t>, data : IEnumerable) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone) ]
         
-    type ItemsRepeater with        
-        static member viewItems<'t when 't :> ItemsRepeater>(views: List<IView>): IAttr<'t> =
-            AttrBuilder<'t>.CreateContentMultiple(ItemsRepeater.ItemsProperty, views)
-        
-        static member dataItems<'t when 't :> ItemsRepeater>(data : IEnumerable): IAttr<'t> =
-            AttrBuilder<'t>.CreateProperty<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone)
-            
-        static member itemTemplate<'t when 't :> ItemsRepeater>(value : IDataTemplate): IAttr<'t> =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone)
+    [<CustomOperation("itemTemplate")>] 
+    member _.itemTemplate<'t>(x: DSLElement<'t>, value : IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone) ]

@@ -1,45 +1,43 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Shape
+
 open Avalonia.Collections
-open Avalonia.Media.Immutable
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Control
+open Avalonia.Controls.Shapes
+open Avalonia.Media
+open Avalonia.FuncUI.Builder
 
-[<AutoOpen>]
-module Shape =
-    open Avalonia.Controls.Shapes
-    open Avalonia.Media
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-
-    type Shape with
-
-        static member fill<'t when 't :> Shape>(brush: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(Shape.FillProperty, brush, ValueNone)
-            
-        static member fill<'t when 't :> Shape>(color: string) =
-            color |> Color.Parse |> ImmutableSolidColorBrush |> Shape.fill
+type ShapeBuilder<'t when 't :> Shape>() =
+    inherit ControlBuilder<'t>()
+    
+    [<CustomOperation("fill")>] 
+    member _.fill<'t>(x: DSLElement<'t>, brush: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(Shape.FillProperty, brush, ValueNone) ]
+    
+    [<CustomOperation("stretch")>] 
+    member _.stretch<'t>(x: DSLElement<'t>, value: Stretch) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Stretch>(Shape.StretchProperty, value, ValueNone) ]
         
-        static member stretch<'t when 't :> Shape>(value: Stretch) =
-            AttrBuilder<'t>.CreateProperty<Stretch>(Shape.StretchProperty, value, ValueNone)
-            
-        static member stroke<'t when 't :> Shape>(brush: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(Shape.StrokeProperty, brush, ValueNone)
-            
-        static member stroke<'t when 't :> Shape>(color: string) =
-            color |> Color.Parse |> ImmutableSolidColorBrush |> Shape.stroke
-            
-        static member strokeThickness<'t when 't :> Shape>(value: double) =
-            AttrBuilder<'t>.CreateProperty<double>(Shape.StrokeThicknessProperty, value, ValueNone)
-            
-        static member strokeDashArray<'t when 't :> Shape>(value: AvaloniaList<double>) =
-            AttrBuilder<'t>.CreateProperty<AvaloniaList<double>>(Shape.StrokeDashArrayProperty, value, ValueNone)
-            
-        static member strokeDashArray<'t when 't :> Shape>(value: double list) =
-            value |> AvaloniaList |> Shape.strokeDashArray
-            
-        static member strokeDashOffset<'t when 't :> Shape>(value: double) =
-            AttrBuilder<'t>.CreateProperty<double>(Shape.StrokeDashOffsetProperty, value, ValueNone)
-            
-        static member strokeLineCap<'t when 't :> Shape>(value: PenLineCap) =
-            AttrBuilder<'t>.CreateProperty<PenLineCap>(Shape.StrokeLineCapProperty, value, ValueNone)
+    [<CustomOperation("stroke")>] 
+    member _.stroke<'t>(x: DSLElement<'t>, brush: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(Shape.StrokeProperty, brush, ValueNone) ]
+        
+    [<CustomOperation("strokeThickness")>] 
+    member _.strokeThickness<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Shape.StrokeThicknessProperty, value, ValueNone) ]
+        
+    [<CustomOperation("strokeDashArray")>] 
+    member _.strokeDashArray<'t>(x: DSLElement<'t>, value: AvaloniaList<double>) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<AvaloniaList<double>>(Shape.StrokeDashArrayProperty, value, ValueNone) ]
+        
+    [<CustomOperation("strokeDashOffset")>] 
+    member _.strokeDashOffset<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Shape.StrokeDashOffsetProperty, value, ValueNone) ]
+        
+    [<CustomOperation("strokeLineCap")>] 
+    member _.strokeLineCap<'t>(x: DSLElement<'t>, value: PenLineCap) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PenLineCap>(Shape.StrokeLineCapProperty, value, ValueNone) ]
 
-        static member strokeJoinCap<'t when 't :> Shape>(value: PenLineJoin) =
-            AttrBuilder<'t>.CreateProperty<PenLineJoin>(Shape.StrokeJoinProperty, value, ValueNone)
+    [<CustomOperation("strokeJoinCap")>] 
+    member _.strokeJoinCap<'t>(x: DSLElement<'t>, value: PenLineJoin) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PenLineJoin>(Shape.StrokeJoinProperty, value, ValueNone) ]

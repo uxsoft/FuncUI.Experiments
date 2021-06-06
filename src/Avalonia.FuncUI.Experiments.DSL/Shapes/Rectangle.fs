@@ -1,10 +1,7 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Rectangle
 
-[<AutoOpen>]
-module Rectangle =
-    open Avalonia.Controls.Shapes
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-    
-    let create (attrs: IAttr<Rectangle> list): IView<Rectangle> =
-        ViewBuilder.Create<Rectangle>(attrs)
+open Avalonia.Controls.Shapes
+open Avalonia.FuncUI.Experiments.DSL.Shape
+
+type RectangleBuilder<'t when 't :> Rectangle>() =
+    inherit ShapeBuilder<'t>()

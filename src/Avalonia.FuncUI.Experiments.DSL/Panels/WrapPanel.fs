@@ -1,21 +1,22 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.WrapPanel
 
-[<AutoOpen>]
-module WrapPanel =
-    open Avalonia.Controls
-    open Avalonia.Layout
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-   
-    let create (attrs: IAttr<WrapPanel> list): IView<WrapPanel> =
-        ViewBuilder.Create<WrapPanel>(attrs)
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Panel
+open Avalonia.Layout
+open Avalonia.FuncUI.Builder
 
-    type WrapPanel with
-        static member itemHeight<'t when 't :> WrapPanel>(value: float) =
-            AttrBuilder<'t>.CreateProperty<float>(WrapPanel.ItemHeightProperty, value, ValueNone)
+type WrapPanelBuilder<'t when 't :> WrapPanel>() =
+    inherit PanelBuilder<'t>()
+    
+    [<CustomOperation("itemHeight")>] 
+    member _.itemHeight<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(WrapPanel.ItemHeightProperty, value, ValueNone) ]
 
-        static member itemWidth<'t when 't :> WrapPanel>(value: float) =
-            AttrBuilder<'t>.CreateProperty<float>(WrapPanel.ItemWidthProperty, value, ValueNone)
-           
-        static member orientation<'t when 't :> WrapPanel>(orientation: Orientation) =
-            AttrBuilder<'t>.CreateProperty<Orientation>(WrapPanel.OrientationProperty, orientation, ValueNone)
+    [<CustomOperation("itemWidth")>] 
+    member _.itemWidth<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(WrapPanel.ItemWidthProperty, value, ValueNone) ]
+       
+    [<CustomOperation("orientation")>] 
+    member _.orientation<'t>(x: DSLElement<'t>, orientation: Orientation) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Orientation>(WrapPanel.OrientationProperty, orientation, ValueNone) ]

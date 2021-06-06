@@ -1,19 +1,15 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Path
 
-[<AutoOpen>]
-module Path =
-    open Avalonia.Media
-    open Avalonia.Controls.Shapes
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Shape
+open Avalonia.Media
+open Avalonia.Controls.Shapes
+open Avalonia.FuncUI.Builder
+open Avalonia.FuncUI.Types
+ 
+type PathBuilder<'t when 't :> Path>() =
+    inherit ShapeBuilder<'t>()
     
-    let create (attrs: IAttr<Path> list): IView<Path> =
-        ViewBuilder.Create<Path>(attrs)
-     
-    type Path with
-
-        static member data<'t when 't :> Path>(geometry: Geometry) =
-            AttrBuilder<'t>.CreateProperty<Geometry>(Path.DataProperty, geometry, ValueNone)
-            
-        static member data<'t when 't :> Path>(data: string) =
-            data |> Geometry.Parse |> Path.data
+    [<CustomOperation("data")>]
+    member _.data<'t>(x: DSLElement<'t>, geometry: Geometry) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Geometry>(Path.DataProperty, geometry, ValueNone) ]

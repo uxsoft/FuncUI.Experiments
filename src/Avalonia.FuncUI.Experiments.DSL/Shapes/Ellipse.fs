@@ -1,10 +1,8 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Ellipse
 
-[<AutoOpen>]
-module Ellipse =
-    open Avalonia.Controls.Shapes
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-    
-    let create (attrs: IAttr<Ellipse> list): IView<Ellipse> =
-        ViewBuilder.Create<Ellipse>(attrs)
+open Avalonia.Controls.Shapes
+open Avalonia.FuncUI.Experiments.DSL.Shape
+
+type EllipseBuilder<'t when 't :> Ellipse>() =
+    inherit ShapeBuilder<'t>()
+   

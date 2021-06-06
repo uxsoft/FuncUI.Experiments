@@ -29,3 +29,39 @@ type ControlBuilder<'t when 't :> Control>() =
     [<CustomOperation("dock")>]
     member _.dock<'t>(x: DSLElement<'t>, dock: Dock) =
         x @@ [ AttrBuilder<'t>.CreateProperty<Dock>(DockPanel.DockProperty, dock, ValueNone) ]
+        
+    [<CustomOperation("left")>] 
+    member _.left<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Canvas.LeftProperty, value, ValueNone) ]
+        
+    [<CustomOperation("top")>] 
+    member _.top<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Canvas.TopProperty, value, ValueNone) ]
+        
+    [<CustomOperation("right")>] 
+    member _.right<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Canvas.RightProperty, value, ValueNone) ]
+        
+    [<CustomOperation("bottom")>] 
+    member _.bottom<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Canvas.BottomProperty, value, ValueNone) ]
+        
+    [<CustomOperation("row")>] 
+    member _.row<'t>(x: DSLElement<'t>, row: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(Grid.RowProperty, row, ValueNone) ]
+        
+    [<CustomOperation("rowSpan")>] 
+    member _.rowSpan<'t>(x: DSLElement<'t>, span: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(Grid.RowSpanProperty, span, ValueNone) ]
+        
+    [<CustomOperation("column")>] 
+    member _.column<'t>(x: DSLElement<'t>, column: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(Grid.ColumnProperty, column, ValueNone) ]
+        
+    [<CustomOperation("columnSpan")>] 
+    member _.columnSpan<'t>(x: DSLElement<'t>, span: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(Grid.ColumnSpanProperty, span, ValueNone) ]
+        
+    [<CustomOperation("isSharedSizeScope")>] 
+    member _.isSharedSizeScope<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Grid.IsSharedSizeScopeProperty, value, ValueNone) ]

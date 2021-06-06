@@ -1,105 +1,84 @@
-namespace Avalonia.FuncUI.Experiments.DSL
-
-[<AutoOpen>]
-module Grid =  
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+namespace Avalonia.FuncUI.Experiments.DSL.Grid
+  
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Panel
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
     
-    let create (attrs: IAttr<Grid> list): IView<Grid> =
-        ViewBuilder.Create<Grid>(attrs)
-        
-    module private Internals =
-        open System.Collections.Generic
-        open System.Linq
-        
-        let compareColumnDefinitions (a: obj, b: obj): bool =
-            let a = a :?> ColumnDefinitions
-            let b = b :?> ColumnDefinitions
-                
-            let comparer =
-                {
-                    new IEqualityComparer<ColumnDefinition> with
-                        member this.Equals (a, b) : bool =
-                            a.Width = b.Width &&
-                            a.MinWidth = b.MinWidth &&
-                            a.MaxWidth = b.MaxWidth &&
-                            a.SharedSizeGroup = b.SharedSizeGroup
-                            
-                        member this.GetHashCode (a) =
-                            (a.Width, a.MinWidth, a.MaxWidth, a.SharedSizeGroup).GetHashCode()
-                }
-            
-            Enumerable.SequenceEqual(a, b, comparer);
-            
-        let compareRowDefinitions (a: obj, b: obj): bool =
-            let a = a :?> RowDefinitions
-            let b = b :?> RowDefinitions
-                
-            let comparer =
-                {
-                    new IEqualityComparer<RowDefinition> with
-                        member this.Equals (a, b) : bool =
-                            a.Height = b.Height &&
-                            a.MinHeight = b.MinHeight &&
-                            a.MaxHeight = b.MaxHeight &&
-                            a.SharedSizeGroup = b.SharedSizeGroup
-
-                        member this.GetHashCode (a) =
-                            (a.Height, a.MinHeight, a.MaxHeight, a.SharedSizeGroup).GetHashCode()
-                }
-            
-            Enumerable.SequenceEqual(a, b, comparer);
-
-    type Control with
-        static member row<'t when 't :> Control>(row: int) =
-            AttrBuilder<'t>.CreateProperty<int>(Grid.RowProperty, row, ValueNone)
-            
-        static member rowSpan<'t when 't :> Control>(span: int) =
-            AttrBuilder<'t>.CreateProperty<int>(Grid.RowSpanProperty, span, ValueNone)
-            
-        static member column<'t when 't :> Control>(column: int) =
-            AttrBuilder<'t>.CreateProperty<int>(Grid.ColumnProperty, column, ValueNone)
-            
-        static member columnSpan<'t when 't :> Control>(span: int) =
-            AttrBuilder<'t>.CreateProperty<int>(Grid.ColumnSpanProperty, span, ValueNone)
-            
-        static member isSharedSizeScope<'t when 't :> Control>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Grid.IsSharedSizeScopeProperty, value, ValueNone)
+module private Internals =
+    open System.Collections.Generic
+    open System.Linq
     
-    type Grid with
+    let compareColumnDefinitions (a: obj, b: obj): bool =
+        let a = a :?> ColumnDefinitions
+        let b = b :?> ColumnDefinitions
+            
+        let comparer =
+            {
+                new IEqualityComparer<ColumnDefinition> with
+                    member this.Equals (a, b) : bool =
+                        a.Width = b.Width &&
+                        a.MinWidth = b.MinWidth &&
+                        a.MaxWidth = b.MaxWidth &&
+                        a.SharedSizeGroup = b.SharedSizeGroup
+                        
+                    member this.GetHashCode (a) =
+                        (a.Width, a.MinWidth, a.MaxWidth, a.SharedSizeGroup).GetHashCode()
+            }
         
-        static member showGridLines<'t when 't :> Grid>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone)
-
-        static member columnDefinitions<'t when 't :> Grid>(value: ColumnDefinitions) =
-            let getter : 't -> ColumnDefinitions = fun view -> view.ColumnDefinitions
-            let setter : 't * ColumnDefinitions -> unit = fun (view, value) -> view.ColumnDefinitions <- value
+        Enumerable.SequenceEqual(a, b, comparer);
+        
+    let compareRowDefinitions (a: obj, b: obj): bool =
+        let a = a :?> RowDefinitions
+        let b = b :?> RowDefinitions
             
-            AttrBuilder<'t>.CreateProperty<_>(
-                "ColumnDefinitions",
-                value,
-                ValueSome getter,
-                ValueSome setter,
-                ValueSome Internals.compareColumnDefinitions,
-                (fun () -> ColumnDefinitions())
-            )
+        let comparer =
+            {
+                new IEqualityComparer<RowDefinition> with
+                    member this.Equals (a, b) : bool =
+                        a.Height = b.Height &&
+                        a.MinHeight = b.MinHeight &&
+                        a.MaxHeight = b.MaxHeight &&
+                        a.SharedSizeGroup = b.SharedSizeGroup
 
-        static member columnDefinitions<'t when 't :> Grid>(value: string) =
-            value |> ColumnDefinitions.Parse |> Grid.columnDefinitions 
+                    member this.GetHashCode (a) =
+                        (a.Height, a.MinHeight, a.MaxHeight, a.SharedSizeGroup).GetHashCode()
+            }
+        
+        Enumerable.SequenceEqual(a, b, comparer);
 
-        static member rowDefinitions<'t when 't :> Grid>(value: RowDefinitions) =
-            let getter : 't -> RowDefinitions = fun view -> view.RowDefinitions
-            let setter : 't * RowDefinitions -> unit = fun (view, value) -> view.RowDefinitions <- value
-            
-            AttrBuilder<'t>.CreateProperty<_>(
-                "RowDefinitions",
-                value,
-                ValueSome getter,
-                ValueSome setter,
-                ValueSome Internals.compareRowDefinitions,
-                (fun () -> RowDefinitions())
-            )
+type GridBuilder<'t when 't :> Grid>() =
+    inherit PanelBuilder<'t>()
+    
+    [<CustomOperation("showGridLines")>] 
+    member _.showGridLines<'t>(x: DSLElement<'t>, value: bool) =
+        AttrBuilder<'t>.CreateProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone)
 
-        static member rowDefinitions<'t when 't :> Grid>(value: string) =
-            value |> RowDefinitions.Parse |> Grid.rowDefinitions 
+    [<CustomOperation("columnDefinitions")>] 
+    member _.columnDefinitions<'t>(x: DSLElement<'t>, value: string) =
+        let columnDefinitions = ColumnDefinitions.Parse value        
+        let getter : 't -> ColumnDefinitions = fun view -> view.ColumnDefinitions
+        let setter : 't * ColumnDefinitions -> unit = fun (view, value) -> view.ColumnDefinitions <- value
+        
+        AttrBuilder<'t>.CreateProperty<_>(
+            "ColumnDefinitions",
+            columnDefinitions,
+            ValueSome getter,
+            ValueSome setter,
+            ValueSome Internals.compareColumnDefinitions,
+            (fun () -> ColumnDefinitions()))
+
+    [<CustomOperation("rowDefinitions")>] 
+    member _.rowDefinitions<'t>(x: DSLElement<'t>, value: string) =
+        let rowDefinitions = RowDefinitions.Parse value
+        let getter : 't -> RowDefinitions = fun view -> view.RowDefinitions
+        let setter : 't * RowDefinitions -> unit = fun (view, value) -> view.RowDefinitions <- value
+        
+        AttrBuilder<'t>.CreateProperty<_>(
+            "RowDefinitions",
+            rowDefinitions,
+            ValueSome getter,
+            ValueSome setter,
+            ValueSome Internals.compareRowDefinitions,
+            (fun () -> RowDefinitions()))

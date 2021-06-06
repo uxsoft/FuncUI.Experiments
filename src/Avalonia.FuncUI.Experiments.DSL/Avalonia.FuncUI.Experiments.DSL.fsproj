@@ -32,7 +32,6 @@
         <Compile Include="Primitives\HeaderedContentControl.fs" />
         <Compile Include="Primitives\HeaderedSelectingItemsControl.fs" />
         <Compile Include="Primitives\SelectingItemsControl.fs" />
-        <Compile Include="Primitives\UniformGrid.fs" />
         <Compile Include="Primitives\HeaderedItemsControl.fs" />
         <Compile Include="Primitives\Track.fs" />
         <Compile Include="Primitives\Popup.fs" />
@@ -48,6 +47,7 @@
         <Compile Include="Panels\StackPanel.fs" />
         <Compile Include="Panels\WrapPanel.fs" />
         <Compile Include="Panels\ItemsRepeater.fs" />
+        <Compile Include="Panels\UniformGrid.fs" />
 
         <Compile Include="Shapes\Shape.fs" />
         <Compile Include="Shapes\Rectangle.fs" />
