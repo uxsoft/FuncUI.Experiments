@@ -1,34 +1,30 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Decorator
 
-[<AutoOpen>]
-module Decorator =
-    open Avalonia
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-    
-    let create (attrs: IAttr<Decorator> list): IView<Decorator> =
-        ViewBuilder.Create<Decorator>(attrs)
-    
-    type Decorator with
-            
-        static member child<'t when 't :> Decorator>(value: obj) =
-            AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, value, ValueNone)    
-            
-        static member child<'t when 't :> Decorator>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(Decorator.ChildProperty, value)
+open Avalonia
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Control
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+
+type DecoratorBuilder<'t when 't :> Decorator>() =
+    inherit ControlBuilder<'t>()
         
-        static member child<'t when 't :> Decorator>(value: IView) =
-            value |> Some |> Decorator.child
-            
-        static member padding<'t when 't :> Decorator>(value: Thickness) =
-            AttrBuilder<'t>.CreateProperty<Thickness>(Decorator.PaddingProperty, value, ValueNone)
-            
-        static member padding<'t when 't :> Decorator>(value: float) =
-            Thickness(value) |> Decorator.padding
-            
-        static member padding<'t when 't :> Decorator>(horizontal: float, vertical: float) =
-            Thickness(horizontal, vertical) |> Decorator.padding
-            
-        static member padding<'t when 't :> Decorator>(left: float, top: float, right: float, bottom: float) =
-            Thickness(left, top, right, bottom) |> Decorator.padding 
+    override _.Flatten x =
+        match x.Children |> List.tryLast with
+        | None -> x.Attributes
+        | Some lastChild -> 
+            let contentProp =
+                match lastChild with
+                | :? string as text ->
+                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, text, ValueNone)
+                | :? IView as view ->
+                    AttrBuilder<'t>.CreateContentSingle(ContentControl.ContentProperty, Some view)
+                | other ->
+                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, other, ValueNone)
+        
+            x.Attributes @ [ contentProp ]
+        
+    [<CustomOperation("padding")>]
+    member _.padding<'t>(x: DSLElement<'t>, value: Thickness) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Thickness>(Decorator.PaddingProperty, value, ValueNone) ]

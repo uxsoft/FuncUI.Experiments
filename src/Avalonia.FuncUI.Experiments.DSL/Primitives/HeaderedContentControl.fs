@@ -1,27 +1,25 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
 
-[<AutoOpen>]
-module HeaderedContentControl =
-    open Avalonia.Controls.Primitives
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-    open Avalonia.Controls.Templates
-     
-    let create (attrs: IAttr<HeaderedContentControl> list): IView<HeaderedContentControl> =
-        ViewBuilder.Create<HeaderedContentControl>(attrs)
-     
-    type HeaderedContentControl with
-        static member header<'t when 't :> HeaderedContentControl>(text: string) =
-            AttrBuilder<'t>.CreateProperty<string>(HeaderedContentControl.HeaderProperty, text, ValueNone)
-            
-        static member header<'t when 't :> HeaderedContentControl>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(HeaderedContentControl.HeaderProperty, value, ValueNone)
-            
-        static member header<'t when 't :> HeaderedContentControl>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(HeaderedContentControl.HeaderProperty, value)
-            
-        static member header<'t when 't :> HeaderedContentControl>(value: IView) =
-            value |> Some |> HeaderedContentControl.header
-            
-        static member headerTemplate<'t when 't :> HeaderedContentControl>(value: IDataTemplate) =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(HeaderedContentControl.HeaderTemplateProperty, value, ValueNone)
+open Avalonia.Controls.Primitives
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+open Avalonia.Controls.Templates
+ 
+type HeaderedContentControlBuilder<'t when 't :> HeaderedContentControl>() =
+    inherit ContentControlBuilder<'t>()
+        
+    [<CustomOperation("header")>] 
+    member _.header<'t, 'c when 't :> HeaderedContentControl and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
+        let prop = 
+            match box value with
+            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(HeaderedContentControl.HeaderProperty, Some view)
+            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(HeaderedContentControl.HeaderProperty, text, ValueNone)
+            | _ -> AttrBuilder<'t>.CreateProperty<obj>(HeaderedContentControl.HeaderProperty, value, ValueNone)
+        
+        x @@ [ prop ]
+        
+    [<CustomOperation("headerTemplate")>] 
+    member _.headerTemplate<'t when 't :> HeaderedContentControl>(x: DSLElement<'t>, value: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(HeaderedContentControl.HeaderTemplateProperty, value, ValueNone) ]

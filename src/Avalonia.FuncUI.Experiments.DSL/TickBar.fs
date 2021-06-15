@@ -1,53 +1,49 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿namespace Avalonia.FuncUI.Experiments.DSL.TickBar
 
-[<AutoOpen>]
-module TickBar = 
-    open Avalonia
-    open Avalonia.Collections
-    open Avalonia.Controls
-    open Avalonia.Media
-    open Avalonia.Media.Immutable
-    open Avalonia.Layout
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open Avalonia
+open Avalonia.Collections
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Control
+open Avalonia.Media
+open Avalonia.Layout
+open Avalonia.FuncUI.Builder
+ 
+type TickBarBuilder<'t when 't :> TickBar>() =
+    inherit ControlBuilder<'t>()
     
-    let create (attrs: IAttr<TickBar> list): IView<TickBar> =
-        ViewBuilder.Create<TickBar>(attrs)
-     
-    type TickBar with
+    [<CustomOperation("fill")>] 
+    member _.fill<'t>(x: DSLElement<'t>, value: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(TickBar.FillProperty, value, ValueNone) ]
 
-        static member fill<'t when 't :> TickBar>(value: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(TickBar.FillProperty, value, ValueNone)
+    [<CustomOperation("isDirectionReversed")>] 
+    member _.isDirectionReversed<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TickBar.IsDirectionReversedProperty, value, ValueNone) ]
 
-        static member fill<'t when 't :> TickBar>(value: Color) =
-            value |> ImmutableSolidColorBrush |> TickBar.fill
+    [<CustomOperation("maximum")>] 
+    member _.maximum<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(TickBar.MaximumProperty, value, ValueNone) ]
 
-        static member fill<'t when 't :> TickBar>(color: string) =
-            color |> Color.Parse |> TickBar.fill
+    [<CustomOperation("minimum")>] 
+    member _.minimum<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(TickBar.MinimumProperty, value, ValueNone) ]
 
-        static member isDirectionReversed<'t when 't :> TickBar>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(TickBar.IsDirectionReversedProperty, value, ValueNone)
+    [<CustomOperation("orientation")>] 
+    member _.orientation<'t>(x: DSLElement<'t>, value: Orientation) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Orientation>(TickBar.OrientationProperty, value, ValueNone) ]
 
-        static member maximum<'t when 't :> TickBar>(value: float) =
-            AttrBuilder<'t>.CreateProperty<float>(TickBar.MaximumProperty, value, ValueNone)
+    [<CustomOperation("placement")>] 
+    member _.placement<'t>(x: DSLElement<'t>, value: TickBarPlacement) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<TickBarPlacement>(TickBar.PlacementProperty, value, ValueNone) ]
 
-        static member minimum<'t when 't :> TickBar>(value: float) =
-            AttrBuilder<'t>.CreateProperty<float>(TickBar.MinimumProperty, value, ValueNone)
+    [<CustomOperation("reservedSpace")>] 
+    member _.reservedSpace<'t>(x: DSLElement<'t>, value: Rect) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Rect>(TickBar.ReservedSpaceProperty, value, ValueNone) ]
 
-        static member orientation<'t when 't :> TickBar>(value: Orientation) =
-            AttrBuilder<'t>.CreateProperty<Orientation>(TickBar.OrientationProperty, value, ValueNone)
+    [<CustomOperation("tickFrequency")>] 
+    member _.tickFrequency<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(TickBar.TickFrequencyProperty, value, ValueNone) ]
 
-        static member placement<'t when 't :> TickBar>(value: TickBarPlacement) =
-            AttrBuilder<'t>.CreateProperty<TickBarPlacement>(TickBar.PlacementProperty, value, ValueNone)
-
-        static member reservedSpace<'t when 't :> TickBar>(value: Rect) =
-            AttrBuilder<'t>.CreateProperty<Rect>(TickBar.ReservedSpaceProperty, value, ValueNone)
-
-        static member tickFrequency<'t when 't :> TickBar>(value: float) =
-            AttrBuilder<'t>.CreateProperty<float>(TickBar.TickFrequencyProperty, value, ValueNone)
-
-        static member ticks<'t when 't :> TickBar>(value: AvaloniaList<float>) =
-            AttrBuilder<'t>.CreateProperty<float AvaloniaList>(TickBar.TicksProperty, value, ValueNone)
-
-        static member ticks<'t when 't :> TickBar>(value: seq<float>) =
-            value |> AvaloniaList |> TickBar.ticks
+    [<CustomOperation("ticks")>] 
+    member _.ticks<'t>(x: DSLElement<'t>, value: float seq) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float AvaloniaList>(TickBar.TicksProperty, AvaloniaList value, ValueNone) ]

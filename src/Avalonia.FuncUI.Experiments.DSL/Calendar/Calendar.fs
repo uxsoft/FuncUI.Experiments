@@ -1,75 +1,61 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.Calendar
 
+open System
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open Avalonia.Media
+open Avalonia.Media.Immutable
+open Avalonia.Controls
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+ 
+type CalendarBuilder<'t when 't :> Calendar>() =
+    inherit TemplatedControlBuilder<'t>()
 
-
-[<AutoOpen>]
-module Calendar =
-    open System
-    open Avalonia.Media
-    open Avalonia.Media.Immutable
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+     [<CustomOperation("firstDayOfWeek")>] 
+     member _.firstDayOfWeek<'t>(x: DSLElement<'t>, value: DayOfWeek) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DayOfWeek>(Calendar.FirstDayOfWeekProperty, value, ValueNone) ]
     
-    let create (attrs: IAttr<Calendar> list): IView<Calendar> =
-        ViewBuilder.Create<Calendar>(attrs)
-     
-    type Calendar with
-  
-        static member firstDayOfWeek<'t when 't :> Calendar>(value: DayOfWeek) =
-            AttrBuilder<'t>.CreateProperty<DayOfWeek>(Calendar.FirstDayOfWeekProperty, value, ValueNone)
-        
-        static member isTodayHighlighted<'t when 't :> Calendar>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Calendar.IsTodayHighlightedProperty , value, ValueNone)
+     [<CustomOperation("isTodayHighlighted")>] 
+     member _.isTodayHighlighted<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Calendar.IsTodayHighlightedProperty , value, ValueNone) ]
 
-        static member headerBackground<'t when 't :> Calendar>(value: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(Calendar.HeaderBackgroundProperty, value, ValueNone)
-        
-        static member headerBackground<'t when 't :> Calendar>(color: string) =
-            color |> Color.Parse |> ImmutableSolidColorBrush |> Calendar.headerBackground
+     [<CustomOperation("headerBackground")>] 
+     member _.headerBackground<'t>(x: DSLElement<'t>, value: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(Calendar.HeaderBackgroundProperty, value, ValueNone) ]
 
-        static member displayMode<'t when 't :> Calendar>(value: CalendarMode) =
-            AttrBuilder<'t>.CreateProperty<CalendarMode>(Calendar.DisplayModeProperty, value, ValueNone)
+     [<CustomOperation("displayMode")>] 
+     member _.displayMode<'t>(x: DSLElement<'t>, value: CalendarMode) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<CalendarMode>(Calendar.DisplayModeProperty, value, ValueNone) ]
 
-        static member onDisplayModeChanged<'t when 't :> Calendar>(func: CalendarMode -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<CalendarMode>(Calendar.DisplayModeProperty, func, ?subPatchOptions = subPatchOptions)
+     [<CustomOperation("onDisplayModeChanged")>] 
+     member _.onDisplayModeChanged<'t>(x: DSLElement<'t>, func: CalendarMode -> unit, ?subPatchOptions) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<CalendarMode>(Calendar.DisplayModeProperty, func, ?subPatchOptions = subPatchOptions) ]
 
-        static member selectionMode<'t when 't :> Calendar>(value: CalendarSelectionMode) =
-            AttrBuilder<'t>.CreateProperty<CalendarSelectionMode>(Calendar.SelectionModeProperty, value, ValueNone)
+     [<CustomOperation("selectionMode")>] 
+     member _.selectionMode<'t>(x: DSLElement<'t>, value: CalendarSelectionMode) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<CalendarSelectionMode>(Calendar.SelectionModeProperty, value, ValueNone) ]
 
-        static member onSelectionModeChanged<'t when 't :> Calendar>(func: CalendarSelectionMode  -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<CalendarSelectionMode >(Calendar.SelectionModeProperty, func, ?subPatchOptions = subPatchOptions)
+     [<CustomOperation("onSelectionModeChanged")>] 
+     member _.onSelectionModeChanged<'t>(x: DSLElement<'t>, func: CalendarSelectionMode  -> unit, ?subPatchOptions) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<CalendarSelectionMode >(Calendar.SelectionModeProperty, func, ?subPatchOptions = subPatchOptions) ]
 
-        static member selectedDate<'t when 't :> Calendar>(value: DateTime Nullable) =
-            AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.SelectedDateProperty, value, ValueNone)
+     [<CustomOperation("selectedDate")>] 
+     member _.selectedDate<'t>(x: DSLElement<'t>, value: DateTime) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.SelectedDateProperty, Nullable value, ValueNone) ]
 
-        static member selectedDate<'t when 't :> Calendar>(value: DateTime) =
-            value |> Nullable |> Calendar.selectedDate
+     [<CustomOperation("onSelectedDateChanged")>] 
+     member _.onSelectedDateChanged<'t>(x: DSLElement<'t>, func: Nullable<DateTime> -> unit, ?subPatchOptions) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTime Nullable>(Calendar.SelectedDateProperty, func, ?subPatchOptions = subPatchOptions) ]
 
-        static member selectedDate<'t when 't :> Calendar>(value: DateTime option) =
-            value |> Option.toNullable |> Calendar.selectedDate
+     [<CustomOperation("displayDate")>] 
+     member _.displayDate<'t>(x: DSLElement<'t>, value: DateTime) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTime>(Calendar.DisplayDateProperty, value, ValueNone) ]
 
-        static member onSelectedDateChanged<'t when 't :> Calendar>(func: Nullable<DateTime> -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<DateTime Nullable>(Calendar.SelectedDateProperty, func, ?subPatchOptions = subPatchOptions)
+     [<CustomOperation("displayDateStart")>] 
+     member _.displayDateStart<'t>(x: DSLElement<'t>, value: DateTime) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.DisplayDateStartProperty, Nullable value, ValueNone) ]
 
-        static member displayDate<'t when 't :> Calendar>(value: DateTime) =
-            AttrBuilder<'t>.CreateProperty<DateTime>(Calendar.DisplayDateProperty, value, ValueNone)
-
-        static member displayDateStart<'t when 't :> Calendar>(value: DateTime Nullable) =
-            AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.DisplayDateStartProperty, value, ValueNone)
-
-        static member displayDateStart<'t when 't :> Calendar>(value: DateTime) =
-            value |> Nullable |> Calendar.displayDateStart
-
-        static member displayDateStart<'t when 't :> Calendar>(value: DateTime option) =
-            value |> Option.toNullable |> Calendar.displayDateStart
-
-        static member displayDateEnd<'t when 't :> Calendar>(value: DateTime Nullable) =
-            AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.DisplayDateEndProperty, value, ValueNone)
-
-        static member displayDateEnd<'t when 't :> Calendar>(value: DateTime) =
-            value |> Nullable |> Calendar.displayDateEnd
-
-        static member displayDateEnd<'t when 't :> Calendar>(value: DateTime option) =
-            value |> Option.toNullable |> Calendar.displayDateEnd
-
+     [<CustomOperation("displayDateEnd")>] 
+     member _.displayDateEnd<'t>(x: DSLElement<'t>, value: DateTime) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.DisplayDateEndProperty, Nullable value, ValueNone) ]

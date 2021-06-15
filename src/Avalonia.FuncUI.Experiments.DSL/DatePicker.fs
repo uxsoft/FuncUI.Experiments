@@ -1,57 +1,61 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿namespace Avalonia.FuncUI.Experiments.DSL.DatePicker
 
-[<AutoOpen>]
-module DatePicker =
-    open System
-    open Avalonia.Controls
-    open Avalonia.Controls.Templates
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open System
+open Avalonia.Controls
+open Avalonia.Controls.Templates
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+ 
+type DatePickerBuilder<'t when 't :> DatePicker>() =
+    inherit TemplatedControlBuilder<'t>()
+
+     [<CustomOperation("selectedDate")>] 
+     member _.selectedDate<'t>(x: DSLElement<'t>, value: DateTimeOffset) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTimeOffset Nullable>(DatePicker.SelectedDateProperty, Nullable value, ValueNone) ]
+
+     [<CustomOperation("onSelectedDateChanged")>] 
+     member _.onSelectedDateChanged<'t>(x: DSLElement<'t>, func: Nullable<DateTimeOffset> -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTimeOffset Nullable>(DatePicker.SelectedDateProperty, func) ]
+
+     [<CustomOperation("dayVisible")>] 
+     member _.dayVisible<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(DatePicker.DayVisibleProperty, value, ValueNone) ]
+
+     [<CustomOperation("monthVisible")>] 
+     member _.monthVisible<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(DatePicker.MonthVisibleProperty, value, ValueNone) ]
+
+     [<CustomOperation("yearVisible")>] 
+     member _.yearVisible<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(DatePicker.YearVisibleProperty, value, ValueNone) ]
+
+     [<CustomOperation("dayFormat")>] 
+     member _.dayFormat<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(DatePicker.DayFormatProperty, value, ValueNone) ]
+
+     [<CustomOperation("monthFormat")>] 
+     member _.monthFormat<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(DatePicker.MonthFormatProperty, value, ValueNone) ]
+
+     [<CustomOperation("yearFormat")>] 
+     member _.yearFormat<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(DatePicker.YearFormatProperty, value, ValueNone) ]
+
+     [<CustomOperation("minYear")>] 
+     member _.minYear<'t>(x: DSLElement<'t>, value: DateTimeOffset) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTimeOffset>(DatePicker.MinYearProperty, value, ValueNone) ]
+        
+     [<CustomOperation("maxYear")>] 
+     member _.maxYear<'t>(x: DSLElement<'t>, value: DateTimeOffset) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<DateTimeOffset>(DatePicker.MaxYearProperty, value, ValueNone) ]
+
+     [<CustomOperation("header")>] 
+     member _.header<'t>(x: DSLElement<'t>, value: obj) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<obj>(DatePicker.HeaderProperty, value, ValueNone) ]
     
-    let create (attrs: IAttr<DatePicker> list): IView<DatePicker> =
-        ViewBuilder.Create<DatePicker>(attrs)
-     
-    type DatePicker with
-
-        static member selectedDate<'t when 't :> DatePicker>(value: DateTimeOffset Nullable) =
-            AttrBuilder<'t>.CreateProperty<DateTimeOffset Nullable>(DatePicker.SelectedDateProperty, value, ValueNone)
-
-        static member selectedDate<'t when 't :> DatePicker>(value: DateTimeOffset) =
-            value |> Nullable |> DatePicker.selectedDate
-
-        static member selectedDate<'t when 't :> DatePicker>(value: DateTimeOffset option) =
-            value |> Option.toNullable |> DatePicker.selectedDate
-
-        static member onSelectedDateChanged<'t when 't :> DatePicker>(func: Nullable<DateTimeOffset> -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<DateTimeOffset Nullable>(DatePicker.SelectedDateProperty, func, ?subPatchOptions = subPatchOptions)
-
-        static member dayVisible<'t when 't :> DatePicker>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(DatePicker.DayVisibleProperty, value, ValueNone)
-
-        static member monthVisible<'t when 't :> DatePicker>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(DatePicker.MonthVisibleProperty, value, ValueNone)
-
-        static member yearVisible<'t when 't :> DatePicker>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(DatePicker.YearVisibleProperty, value, ValueNone)
-
-        static member dayFormat<'t when 't :> DatePicker>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(DatePicker.DayFormatProperty, value, ValueNone)
-
-        static member monthFormat<'t when 't :> DatePicker>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(DatePicker.MonthFormatProperty, value, ValueNone)
-
-        static member yearFormat<'t when 't :> DatePicker>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(DatePicker.YearFormatProperty, value, ValueNone)
-
-        static member minYear<'t when 't :> DatePicker>(value: DateTimeOffset) =
-            AttrBuilder<'t>.CreateProperty<DateTimeOffset>(DatePicker.MinYearProperty, value, ValueNone)
-            
-        static member maxYear<'t when 't :> DatePicker>(value: DateTimeOffset) =
-            AttrBuilder<'t>.CreateProperty<DateTimeOffset>(DatePicker.MaxYearProperty, value, ValueNone)
-
-        static member header<'t when 't :> DatePicker>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(DatePicker.HeaderProperty, value, ValueNone)
-        
-        static member headerTemplate<'t when 't :> DatePicker>(template: IDataTemplate) =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(DatePicker.HeaderTemplateProperty, template, ValueNone)
-        
+     [<CustomOperation("headerTemplate")>] 
+     member _.headerTemplate<'t>(x: DSLElement<'t>, template: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(DatePicker.HeaderTemplateProperty, template, ValueNone) ]
+    

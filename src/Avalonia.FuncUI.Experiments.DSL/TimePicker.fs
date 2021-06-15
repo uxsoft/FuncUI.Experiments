@@ -1,32 +1,36 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.TimePicker
 
-[<AutoOpen>]
-module TimePicker =
-    open System
-    open Avalonia.Controls
-    open Avalonia.Controls.Templates
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open System
+open Avalonia.Controls
+open Avalonia.Controls.Templates
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+ 
+type TimePickerBuilder<'t when 't :> TimePicker>() =
+    inherit TemplatedControlBuilder<'t>()
+
+    [<CustomOperation("clockIdentifier")>] 
+    member _.clockIdentifier<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(TimePicker.ClockIdentifierProperty, value, ValueNone) ]
     
-    let create (attrs: IAttr<TimePicker> list): IView<TimePicker> =
-        ViewBuilder.Create<TimePicker>(attrs)
-     
-    type TimePicker with
-
-        static member clockIdentifier<'t when 't :> TimePicker>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(TimePicker.ClockIdentifierProperty, value, ValueNone)
-        
-        static member header<'t when 't :> TimePicker>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(TimePicker.HeaderProperty, value, ValueNone)
-        
-        static member headerTemplate<'t when 't :> TimePicker>(template: IDataTemplate) =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(TimePicker.HeaderTemplateProperty, template, ValueNone)
-        
-        static member minuteIncrement<'t when 't :> TimePicker>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(TimePicker.MinuteIncrementProperty, value, ValueNone)
-        
-        static member selectedTime<'t when 't :> TimePicker>(value: Nullable<TimeSpan>) =
-            AttrBuilder<'t>.CreateProperty<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, value, ValueNone)
-        
-        static member onSelectedTimeChanged<'t when 't :> TimePicker>(func: Nullable<TimeSpan> -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("header")>] 
+    member _.header<'t>(x: DSLElement<'t>, value: obj) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<obj>(TimePicker.HeaderProperty, value, ValueNone) ]
+    
+    [<CustomOperation("headerTemplate")>] 
+    member _.headerTemplate<'t>(x: DSLElement<'t>, template: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(TimePicker.HeaderTemplateProperty, template, ValueNone) ]
+    
+    [<CustomOperation("minuteIncrement")>] 
+    member _.minuteIncrement<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(TimePicker.MinuteIncrementProperty, value, ValueNone) ]
+    
+    [<CustomOperation("selectedTime")>] 
+    member _.selectedTime<'t>(x: DSLElement<'t>, value: Nullable<TimeSpan>) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, value, ValueNone) ]
+    
+    [<CustomOperation("onSelectedTimeChanged")>] 
+    member _.onSelectedTimeChanged<'t>(x: DSLElement<'t>, func: Nullable<TimeSpan> -> unit, ?subPatchOptions) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, func) ]

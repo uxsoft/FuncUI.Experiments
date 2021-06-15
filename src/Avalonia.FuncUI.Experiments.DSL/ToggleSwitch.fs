@@ -1,27 +1,27 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.ToggleSwitch
 
+open Avalonia.Controls
+open Avalonia.Controls.Templates
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.ToggleButton
+open Avalonia.FuncUI.Builder
 
-[<AutoOpen>]
-module ToggleSwitch =
+type ToggleSwitchBuilder<'t when 't :> ToggleSwitch>() =
+    inherit ToggleButtonBuilder<'t>()
+    
+    [<CustomOperation("onContent")>] 
+    member _.onContent<'t>(x: DSLElement<'t>, value: obj) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<obj>(ToggleSwitch.OnContentProperty, value, ValueNone) ]
+    
+    [<CustomOperation("onContentTemplate")>] 
+    member _.onContentTemplate<'t>(x: DSLElement<'t>, template: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(ToggleSwitch.OnContentTemplateProperty, template, ValueNone) ]
+    
+    [<CustomOperation("offContent")>] 
+    member _.offContent<'t>(x: DSLElement<'t>, value: obj) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<obj>(ToggleSwitch.OffContentProperty, value, ValueNone) ]
 
-    open Avalonia.Controls
-    open Avalonia.Controls.Templates
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-
-    let create (attrs: IAttr<ToggleSwitch> list): IView<ToggleSwitch> =
-        ViewBuilder.Create<ToggleSwitch>(attrs)
-
-    type ToggleSwitch with
-        static member onContent<'t when 't :> ToggleSwitch>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(ToggleSwitch.OnContentProperty, value, ValueNone)
+    [<CustomOperation("offContentTemplate")>] 
+    member _.offContentTemplate<'t>(x: DSLElement<'t>, template: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(ToggleSwitch.OffContentTemplateProperty, template, ValueNone) ]
         
-        static member onContentTemplate<'t when 't :> ToggleSwitch>(template: IDataTemplate) =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(ToggleSwitch.OnContentTemplateProperty, template, ValueNone)
-        
-        static member offContent<'t when 't :> ToggleSwitch>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(ToggleSwitch.OffContentProperty, value, ValueNone)
-
-        static member offContentTemplate<'t when 't :> ToggleSwitch>(template: IDataTemplate) =
-            AttrBuilder<'t>.CreateProperty<IDataTemplate>(ToggleSwitch.OffContentTemplateProperty, template, ValueNone)
-            

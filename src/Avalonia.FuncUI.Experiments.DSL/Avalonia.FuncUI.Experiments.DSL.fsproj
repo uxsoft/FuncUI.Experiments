@@ -30,9 +30,9 @@
 
         <Compile Include="Primitives\ContentControl.fs" />
         <Compile Include="Primitives\HeaderedContentControl.fs" />
-        <Compile Include="Primitives\HeaderedSelectingItemsControl.fs" />
         <Compile Include="Primitives\SelectingItemsControl.fs" />
         <Compile Include="Primitives\HeaderedItemsControl.fs" />
+        <Compile Include="Primitives\HeaderedSelectingItemsControl.fs" />
         <Compile Include="Primitives\Track.fs" />
         <Compile Include="Primitives\Popup.fs" />
         <Compile Include="Primitives\TabStrip.fs" />
@@ -70,10 +70,11 @@
         <Compile Include="Button.fs" />
         <Compile Include="ToggleButton.fs" />
         <Compile Include="ToggleSwitch.fs" />
+        <Compile Include="Spinner.fs" />
         <Compile Include="ButtonSpinner.fs" />
         <Compile Include="NumericUpDown.fs" />
-        <Compile Include="Border.fs" />
         <Compile Include="Decorator.fs" />
+        <Compile Include="Border.fs" />
         <Compile Include="DataValidationErrors.fs" />
         <Compile Include="ComboBoxItem.fs" />
         <Compile Include="ComboBox.fs" />
@@ -96,7 +97,6 @@
         <Compile Include="Slider.fs" />
         <Compile Include="SplitView.fs" />
         <Compile Include="Expander.fs" />
-        <Compile Include="Spinner.fs" />
         <Compile Include="LayoutTransformControl.fs" />
         <Compile Include="TextBlock.fs" />
         <Compile Include="TextBox.fs" />
