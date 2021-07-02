@@ -1,21 +1,22 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.TabItem
 
-[<AutoOpen>]
-module TabItem =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+ 
+type TabItemBuilder<'t when 't :> TabItem>() =
+    inherit HeaderedContentControlBuilder<'t>()
+
+    [<CustomOperation("tabStripPlacement")>] 
+    member _.tabStripPlacement<'t>(x: DSLElement<'t>, placement: Dock) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Dock>(TabItem.TabStripPlacementProperty, placement, ValueNone) ]
     
-    let create (attrs: IAttr<TabItem> list): IView<TabItem> =
-        ViewBuilder.Create<TabItem>(attrs)
-     
-    type TabItem with
-
-        static member tabStripPlacement<'t when 't :> TabItem>(placement: Dock) =
-            AttrBuilder<'t>.CreateProperty<Dock>(TabItem.TabStripPlacementProperty, placement, ValueNone)
+    [<CustomOperation("isSelected")>] 
+    member _.isSelected<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TabItem.IsSelectedProperty, value, ValueNone) ]
         
-        static member isSelected<'t when 't :> TabItem>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(TabItem.IsSelectedProperty, value, ValueNone)
-            
-        static member onIsSelectedChanged<'t when 't :> TabItem>(func: bool -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<bool>(TabItem.IsSelectedProperty, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("onIsSelectedChanged")>] 
+    member _.onIsSelectedChanged<'t>(x: DSLElement<'t>, func: bool -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(TabItem.IsSelectedProperty, func) ]
