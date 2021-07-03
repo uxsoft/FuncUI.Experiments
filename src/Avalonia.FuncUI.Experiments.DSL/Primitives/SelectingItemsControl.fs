@@ -4,7 +4,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder
 open Avalonia.FuncUI.Experiments.DSL.Common
-open Avalonia.FuncUI.Experiments.DSL.Primitives.ItemsControl
+open Avalonia.FuncUI.Experiments.DSL.ItemsControl
 open Avalonia.FuncUI.Types
  
 type SelectingItemsControlBuilder<'t when 't :> SelectingItemsControl>() =

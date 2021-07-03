@@ -35,12 +35,10 @@
         <Compile Include="Primitives\HeaderedSelectingItemsControl.fs" />
         <Compile Include="Primitives\Track.fs" />
         <Compile Include="Primitives\Popup.fs" />
-        <Compile Include="Primitives\TabStrip.fs" />
-        <Compile Include="Primitives\TabStripItem.fs" />
         <Compile Include="Primitives\Thumb.fs" />
         <Compile Include="Primitives\AccessText.fs" />
+        <Compile Include="Primitives\RangeBase.fs" />
         <Compile Include="Primitives\ScrollBar.fs" />
-
         <Compile Include="Panels\Canvas.fs" />
         <Compile Include="Panels\DockPanel.fs" />
         <Compile Include="Panels\Grid.fs" />
@@ -57,7 +55,24 @@
         <Compile Include="Shapes\Polygon.fs" />
         <Compile Include="Shapes\Path.fs" />
 
+        <Compile Include="Items\ListBoxItem.fs" />
+        <Compile Include="Items\ListBox.fs" />
+        <Compile Include="Items\TabStrip.fs" />
+        <Compile Include="Items\TabStripItem.fs" />
+        <Compile Include="Items\ComboBoxItem.fs" />
+        <Compile Include="Items\ComboBox.fs" />
+        <Compile Include="Items\Carousel.fs" />
+        <Compile Include="Items\TabControl.fs" />
+        <Compile Include="Items\TabItem.fs" />
+        <Compile Include="Items\TreeView.fs" />
+        <Compile Include="Items\TreeViewItem.fs" />
+        <Compile Include="Items\MenuBase.fs" />
+        <Compile Include="Items\Menu.fs" />
+        <Compile Include="Items\MenuItem.fs" />
+        
         <Compile Include="Components\LazyView.fs" />
+        
+        <Compile Include="Components\DataValidationErrors.fs" />
 
         <Compile Include="Calendar\Calendar.fs" />
         <Compile Include="Calendar\CalendarDatePicker.fs" />
@@ -65,7 +80,7 @@
         <Compile Include="TimePicker.fs" />
         <Compile Include="TickBar.fs" />
 
-        <Compile Include="ItemsControl.fs" />
+        
         <Compile Include="AutoCompleteBox.fs" />
         <Compile Include="Button.fs" />
         <Compile Include="ToggleButton.fs" />
@@ -75,19 +90,11 @@
         <Compile Include="NumericUpDown.fs" />
         <Compile Include="Decorator.fs" />
         <Compile Include="Border.fs" />
-        <Compile Include="DataValidationErrors.fs" />
-        <Compile Include="ListBoxItem.fs" />
-        <Compile Include="ListBox.fs" />
-        <Compile Include="ComboBoxItem.fs" />
-        <Compile Include="ComboBox.fs" />
+        
         <Compile Include="CheckBox.fs" />
-        <Compile Include="Carousel.fs" />
+        
         <Compile Include="Image.fs" />
-        <Compile Include="RangeBase.fs" />
-        <Compile Include="MenuBase.fs" />
-        <Compile Include="Menu.fs" />
         <Compile Include="ContextMenu.fs" />
-        <Compile Include="MenuItem.fs" />
         <Compile Include="GridSplitter.fs" />
         <Compile Include="ProgressBar.fs" />
         <Compile Include="RadioButton.fs" />
@@ -100,11 +107,7 @@
         <Compile Include="LayoutTransformControl.fs" />
         <Compile Include="TextBlock.fs" />
         <Compile Include="TextBox.fs" />
-        <Compile Include="TreeView.fs" />
-        <Compile Include="TreeViewItem.fs" />
         <Compile Include="ToolTip.fs" />
-        <Compile Include="TabControl.fs" />
-        <Compile Include="TabItem.fs" />
         <Compile Include="ViewBox.fs" />
         <Compile Include="DSL.fs" />
         <Content Include="icon.png" />

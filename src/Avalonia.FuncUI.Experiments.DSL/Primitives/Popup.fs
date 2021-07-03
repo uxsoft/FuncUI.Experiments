@@ -1,65 +1,72 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Popup
 
+open Avalonia
+open Avalonia.Controls
+open Avalonia.Controls.Primitives
+open Avalonia.Controls.Primitives.PopupPositioning
+open Avalonia.FuncUI.Builder
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Control
+open Avalonia.FuncUI.Types
+open System
 
-[<AutoOpen>]
-module Popup =
-    open Avalonia
-    open Avalonia.Controls
-    open Avalonia.Controls.Primitives
-    open Avalonia.Controls.Primitives.PopupPositioning
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-    open System
+type PopupBuilder<'t when 't :> Popup>() =
+    inherit ControlBuilder<'t>()
 
-    let create (attrs: IAttr<Popup> list): IView<Popup> =
-        ViewBuilder.Create<Popup>(attrs)
-    
-    type Popup with
+    [<CustomOperation("child")>] 
+    member _.child<'t, 'c when 't :> Track and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
+        let prop = 
+            match box value with
+            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Popup.ChildProperty, Some view)
+            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Popup.ChildProperty, text, ValueNone)
+            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Popup.ChildProperty, value, ValueNone)
         
-        static member child<'t when 't :> Popup>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(Popup.ChildProperty, value)
+        x @@ [ prop ] 
+
+    [<CustomOperation("isOpen")>] 
+    member _.isOpen<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Popup.IsOpenProperty, value, ValueNone) ]
         
-        static member child<'t when 't :> Popup>(value: IView) =
-            value |> Some |> Popup.child
-            
-        static member isOpen<'t when 't :> Popup>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Popup.IsOpenProperty, value, ValueNone)
-            
-        static member isLightDismissEnabled<'t when 't :> Popup>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Popup.IsLightDismissEnabledProperty, value, ValueNone)
-            
-        static member topmost<'t when 't :> Popup>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Popup.TopmostProperty, value, ValueNone)
+    [<CustomOperation("isLightDismissEnabled")>] 
+    member _.isLightDismissEnabled<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Popup.IsLightDismissEnabledProperty, value, ValueNone) ]
+        
+    [<CustomOperation("topmost")>] 
+    member _.topmost<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Popup.TopmostProperty, value, ValueNone) ]
 
-        static member placementAnchor<'t when 't :> Popup>(value: PopupAnchor) =
-            AttrBuilder<'t>.CreateProperty<PopupAnchor>(Popup.PlacementModeProperty, value, ValueNone)
-            
-        static member placementConstraintAdjustment<'t when 't :> Popup>(value: PopupPositionerConstraintAdjustment) =
-            AttrBuilder<'t>.CreateProperty<PopupPositionerConstraintAdjustment>(Popup.PlacementConstraintAdjustmentProperty, value, ValueNone)
+    [<CustomOperation("placementAnchor")>] 
+    member _.placementAnchor<'t>(x: DSLElement<'t>, value: PopupAnchor) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PopupAnchor>(Popup.PlacementModeProperty, value, ValueNone) ]
+        
+    [<CustomOperation("placementConstraintAdjustment")>] 
+    member _.placementConstraintAdjustment<'t>(x: DSLElement<'t>, value: PopupPositionerConstraintAdjustment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PopupPositionerConstraintAdjustment>(Popup.PlacementConstraintAdjustmentProperty, value, ValueNone) ]
 
-        static member placementGravity<'t when 't :> Popup>(value: PopupGravity) =
-            AttrBuilder<'t>.CreateProperty<PopupGravity>(Popup.PlacementGravityProperty, value, ValueNone)
+    [<CustomOperation("placementGravity")>] 
+    member _.placementGravity<'t>(x: DSLElement<'t>, value: PopupGravity) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PopupGravity>(Popup.PlacementGravityProperty, value, ValueNone) ]
 
-        static member placementRect<'t when 't :> Popup>(value: Nullable<Rect>) =
-            AttrBuilder<'t>.CreateProperty<Rect Nullable>(Popup.PlacementRectProperty, value, ValueNone)
+    [<CustomOperation("placementRect")>] 
+    member _.placementRect<'t>(x: DSLElement<'t>, value: Rect) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Rect Nullable>(Popup.PlacementRectProperty, Nullable value, ValueNone) ]
 
-        static member placementRect<'t when 't :> Popup>(value: Rect) =
-            value |> Nullable |> Popup.placementRect
+    [<CustomOperation("placementMode")>] 
+    member _.placementMode<'t>(x: DSLElement<'t>, value: PlacementMode) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PlacementMode>(Popup.PlacementModeProperty, value, ValueNone) ]
+        
+    [<CustomOperation("placementTarget")>] 
+    member _.placementTarget<'t>(x: DSLElement<'t>, value: Control) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Control>(Popup.PlacementTargetProperty, value, ValueNone) ]
+        
+    [<CustomOperation("verticalOffset")>] 
+    member _.verticalOffset<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Popup.VerticalOffsetProperty, value, ValueNone) ]
+        
+    [<CustomOperation("horizontalOffset")>] 
+    member _.horizontalOffset<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(Popup.HorizontalOffsetProperty, value, ValueNone) ]
 
-        static member placementRect<'t when 't :> Popup>(value: Rect option) =
-            value |> Option.toNullable |> Popup.placementRect
-
-        static member placementMode<'t when 't :> Popup>(value: PlacementMode) =
-            AttrBuilder<'t>.CreateProperty<PlacementMode>(Popup.PlacementModeProperty, value, ValueNone)
-            
-        static member placementTarget<'t when 't :> Popup>(value: Control) =
-            AttrBuilder<'t>.CreateProperty<Control>(Popup.PlacementTargetProperty, value, ValueNone)
-            
-        static member verticalOffset<'t when 't :> Popup>(value: double) =
-            AttrBuilder<'t>.CreateProperty<double>(Popup.VerticalOffsetProperty, value, ValueNone)
-            
-        static member horizontalOffset<'t when 't :> Popup>(value: double) =
-            AttrBuilder<'t>.CreateProperty<double>(Popup.HorizontalOffsetProperty, value, ValueNone)
-
-        static member windowManagerAddShadowHint<'t when 't :> Popup>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Popup.WindowManagerAddShadowHintProperty, value, ValueNone)
+    [<CustomOperation("windowManagerAddShadowHint")>] 
+    member _.windowManagerAddShadowHint<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Popup.WindowManagerAddShadowHintProperty, value, ValueNone) ]
