@@ -4,8 +4,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>uxsoft</Authors>
-        <Product>Avalonia.FuncUI.Experiments.DSL</Product>
-        <PackageId>Avalonia.FuncUI.Experiments.DSL</PackageId>
+        <Product>uxsoft.Avalonia.FuncUI.CEDSL</Product>
+        <PackageId>uxsoft.Avalonia.FuncUI.CEDSL</PackageId>
         <PackageProjectUrl>https://github.com/uxsoft/FuncUI.Experiments</PackageProjectUrl>
         <RepositoryUrl>https://github.com/uxsoft/FuncUI.Experiments</RepositoryUrl>
         <PackageIcon>icon.png</PackageIcon>
