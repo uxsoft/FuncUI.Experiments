@@ -3,7 +3,6 @@ module Avalonia.FuncUI.Experiments.DSL.RangeBase
 open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
  
 type RangeBaseBuilder<'t when 't :> RangeBase>() =

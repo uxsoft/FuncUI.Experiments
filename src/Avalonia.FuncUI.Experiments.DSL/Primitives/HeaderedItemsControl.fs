@@ -10,7 +10,6 @@ open Avalonia.FuncUI.Builder
 type HeaderedItemsControlBuilder<'t when 't :> HeaderedItemsControl>() =
     inherit ItemsControlBuilder<'t>()
     
-    
     [<CustomOperation("header")>] 
     member _.header<'t, 'c when 't :> HeaderedItemsControl and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
         let prop = 

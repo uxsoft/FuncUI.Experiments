@@ -3,7 +3,6 @@ namespace Avalonia.FuncUI.Experiments.DSL.Grid
 open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Panel
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
     
 module private Internals =

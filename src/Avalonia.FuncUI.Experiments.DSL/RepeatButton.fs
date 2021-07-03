@@ -1,24 +1,23 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.RepeatButton
 
-[<AutoOpen>]
-module RepeatButton =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-   
-    let create (attrs: IAttr<RepeatButton> list): IView<RepeatButton> =
-        ViewBuilder.Create<RepeatButton>(attrs)
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Button
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Builder
 
-    type RepeatButton with
+type RepeatButtonBuilder<'t when 't :> RepeatButton>() =
+    inherit ButtonBuilder<'t>()
 
-        /// <summary>
-        /// Sets the amount of time, in milliseconds, of repeating clicks.
-        /// </summary>
-        static member interval<'t when 't :> RepeatButton>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(RepeatButton.IntervalProperty, value, ValueNone)
-        
-        /// <summary>
-        /// Sets the amount of time, in milliseconds, to wait before repeating begins.
-        /// </summary>
-        static member delay<'t when 't :> RepeatButton>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(RepeatButton.DelayProperty, value, ValueNone)
+    /// <summary>
+    /// Sets the amount of time, in milliseconds, of repeating clicks.
+    /// </summary>
+    [<CustomOperation("interval")>]
+    member _.interval<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(RepeatButton.IntervalProperty, value, ValueNone) ]
+    
+    /// <summary>
+    /// Sets the amount of time, in milliseconds, to wait before repeating begins.
+    /// </summary>
+    [<CustomOperation("delay")>]
+    member _.delay<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(RepeatButton.DelayProperty, value, ValueNone) ]

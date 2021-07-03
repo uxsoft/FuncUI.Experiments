@@ -1,6 +1,7 @@
 module Avalonia.FuncUI.Experiments.DSL.Control
   
 open Avalonia.Controls
+open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.InputElement
 open Avalonia.FuncUI.Builder
@@ -65,3 +66,67 @@ type ControlBuilder<'t when 't :> Control>() =
     [<CustomOperation("isSharedSizeScope")>] 
     member _.isSharedSizeScope<'t>(x: DSLElement<'t>, value: bool) =
         x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Grid.IsSharedSizeScopeProperty, value, ValueNone) ]
+        
+    [<CustomOperation("showAccessKey")>]
+    member _.showAccessKey<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty(AccessText.ShowAccessKeyProperty, value, ValueNone) ]
+        
+    [<CustomOperation("verticalScrollBarVisibility")>]
+    member _.verticalScrollBarVisibility<'t>(x: DSLElement<'t>, value: ScrollBarVisibility) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<ScrollBarVisibility>(ScrollViewer.VerticalScrollBarVisibilityProperty, value, ValueNone) ]
+
+    /// <summary>
+    /// Sets the horizontal scrollbar visibility.
+    /// </summary>
+    [<CustomOperation("horizontalScrollBarVisibility")>]
+    member _.horizontalScrollBarVisibility<'t>(x: DSLElement<'t>, value: ScrollBarVisibility) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<ScrollBarVisibility>(ScrollViewer.HorizontalScrollBarVisibilityProperty, value, ValueNone) ]
+
+
+    /// <summary>
+    /// A value indicating whether the tool tip is visible.
+    /// </summary>
+    [<CustomOperation("toolTipIsOpen")>]
+    member _.toolTipIsOpen<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(ToolTip.IsOpenProperty, value, ValueNone) ]
+
+    /// <summary>
+    /// The content to be displayed in the control's tooltip.
+    /// </summary>
+    [<CustomOperation("tip")>] 
+    member _.tip<'t, 'c when 't :> Control and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
+        let prop = 
+            match box value with
+            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(ToolTip.TipProperty, Some view)
+            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(ToolTip.TipProperty, text, ValueNone)
+            | _ -> AttrBuilder<'t>.CreateProperty<obj>(ToolTip.TipProperty, value, ValueNone)
+        
+        x @@ [ prop ]
+
+    /// <summary>
+    /// A value indicating how the tool tip is positioned.
+    /// </summary>
+    [<CustomOperation("toolTipPlacement")>]
+    member _.toolTipPlacement<'t>(x: DSLElement<'t>, value: PlacementMode) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<PlacementMode>(ToolTip.PlacementProperty, value, ValueNone) ]
+
+    /// <summary>
+    /// A value indicating how the tool tip is positioned.
+    /// </summary>
+    [<CustomOperation("toolTipHorizontalOffset")>]
+    member _.toolTipHorizontalOffset<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(ToolTip.HorizontalOffsetProperty, value, ValueNone) ]
+
+    /// <summary>
+    /// A value indicating how the tool tip is positioned.
+    /// </summary>
+    [<CustomOperation("toolTipVerticalOffset")>]
+    member _.toolTipVerticalOffset<'t>(x: DSLElement<'t>, value: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(ToolTip.VerticalOffsetProperty, value, ValueNone) ]
+
+    /// <summary>
+    /// A value indicating the time, in milliseconds, before a tool tip opens.
+    /// </summary>
+    [<CustomOperation("toolTipShowDelay")>]
+    member _.toolTipShowDelay<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(ToolTip.ShowDelayProperty, value, ValueNone) ]

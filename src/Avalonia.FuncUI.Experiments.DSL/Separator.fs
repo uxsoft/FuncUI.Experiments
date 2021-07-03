@@ -1,13 +1,7 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.Separator
 
-[<AutoOpen>]
-module Separator =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-   
-    let create (attrs: IAttr<Separator> list): IView<Separator> =
-        ViewBuilder.Create<Separator>(attrs)
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
 
-    type Separator with
-        end
+type SeparatorBuilder<'t when 't :> Separator>() =
+    inherit TemplatedControlBuilder<'t>()

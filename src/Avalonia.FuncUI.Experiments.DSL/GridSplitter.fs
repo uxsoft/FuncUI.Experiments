@@ -1,13 +1,7 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.GridSplitter
 
-[<AutoOpen>]
-module GridSplitter =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-     
-    let create (attrs: IAttr<GridSplitter> list): IView<GridSplitter> =
-        ViewBuilder.Create<GridSplitter>(attrs)
-     
-    type GridSplitter with
-        end
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Thumb
+ 
+type GridSplitterBuilder<'t when 't :> GridSplitter>() =
+    inherit ThumbBuilder<'t>()

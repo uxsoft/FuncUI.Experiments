@@ -1,16 +1,13 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.RadioButton
 
-[<AutoOpen>]
-module RadioButton =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-   
-    let create (attrs: IAttr<RadioButton> list): IView<RadioButton> =
-        ViewBuilder.Create<RadioButton>(attrs)
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.ToggleButton
+open Avalonia.FuncUI.Builder
 
-    type RadioButton with
+type RadioButtonBuilder<'t when 't :> RadioButton>() =
+    inherit ToggleButtonBuilder<'t>()
 
-        static member groupName<'t when 't :> RadioButton>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(RadioButton.GroupNameProperty, value, ValueNone)
-        
+    member _.groupName<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(RadioButton.GroupNameProperty, value, ValueNone) ]
+    

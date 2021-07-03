@@ -4,7 +4,6 @@ open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Control
 open Avalonia
 open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Types
 open Avalonia.Media
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Templates

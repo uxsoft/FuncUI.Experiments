@@ -3,7 +3,6 @@ module Avalonia.FuncUI.Experiments.DSL.ListBoxItem
 open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.ContentControl
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
  
 type ListBoxItemBuilder<'t when 't :> ListBoxItem>() =

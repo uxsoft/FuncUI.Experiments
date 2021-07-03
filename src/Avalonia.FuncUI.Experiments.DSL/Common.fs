@@ -1,6 +1,5 @@
 module Avalonia.FuncUI.Experiments.DSL.Common
 
-open System.Collections.Generic
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
         

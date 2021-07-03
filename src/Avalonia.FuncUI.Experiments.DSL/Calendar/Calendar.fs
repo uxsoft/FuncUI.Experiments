@@ -4,9 +4,7 @@ open System
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Avalonia.Controls
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
  
 type CalendarBuilder<'t when 't :> Calendar>() =

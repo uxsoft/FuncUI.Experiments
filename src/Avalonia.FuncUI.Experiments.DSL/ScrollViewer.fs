@@ -1,73 +1,65 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.ScrollViewer
 
-[<AutoOpen>]
-module ScrollViewer  =
-    open Avalonia
-    open Avalonia.Controls.Primitives
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-   
-    let create (attrs: IAttr<ScrollViewer> list): IView<ScrollViewer> =
-        ViewBuilder.Create<ScrollViewer>(attrs)
+open Avalonia
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open Avalonia.FuncUI.Builder
 
-    type Control with            
+type ScrollViewerBuilder<'t when 't :> ScrollViewer>() =
+    inherit ContentControlBuilder<'t>()
 
-        /// <summary>
-        /// Sets the vertical scrollbar visibility.
-        /// </summary>
-        static member verticalScrollBarVisibility<'t when 't :> Control>(value: ScrollBarVisibility) =
-            AttrBuilder<'t>.CreateProperty<ScrollBarVisibility>(ScrollViewer.VerticalScrollBarVisibilityProperty, value, ValueNone)
+    [<CustomOperation("allowAutoHide")>]
+    member _.allowAutoHide<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(ScrollViewer.AllowAutoHideProperty, value, ValueNone) ]
+    
+    /// <summary>
+    /// Sets the extent of the scrollable content.
+    /// </summary>
+    [<CustomOperation("extent")>]
+    member _.extent<'t>(x: DSLElement<'t>, value: Size) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.ExtentProperty, value, ValueNone) ]
 
-        /// <summary>
-        /// Sets the horizontal scrollbar visibility.
-        /// </summary>
-        static member horizontalScrollBarVisibility<'t when 't :> Control>(value: ScrollBarVisibility) =
-            AttrBuilder<'t>.CreateProperty<ScrollBarVisibility>(ScrollViewer.HorizontalScrollBarVisibilityProperty, value, ValueNone)
+    [<CustomOperation("isExpanded")>]
+    member _.isExpanded<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(ScrollViewer.IsExpandedProperty, value, ValueNone) ]
 
-    type ScrollViewer with
+    [<CustomOperation("largeChange")>]
+    member _.largeChange<'t>(x: DSLElement<'t>, value: Size) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.LargeChangeProperty, value, ValueNone) ]
 
-        static member allowAutoHide<'t when 't :> ScrollViewer>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(ScrollViewer.AllowAutoHideProperty, value, ValueNone)
+    /// <summary>
+    /// Sets the current scroll offset.
+    /// </summary>
+    [<CustomOperation("offset")>]
+    member _.offset<'t>(x: DSLElement<'t>, value: Vector) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Vector>(ScrollViewer.OffsetProperty, value, ValueNone) ]
+
+    [<CustomOperation("onScrollChanged")>]
+    member _.onScrollChanged<'t>(x: DSLElement<'t>, func: ScrollChangedEventArgs -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<ScrollChangedEventArgs>(ScrollViewer.ScrollChangedEvent, func) ]
+
+    [<CustomOperation("smallChange")>]
+    member _.smallChange<'t>(x: DSLElement<'t>, value: Size) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.SmallChangeProperty, value, ValueNone) ]
+
+    /// <summary>
+    /// Sets the size of the viewport on the scrollable content.
+    /// </summary>
+    [<CustomOperation("viewport")>]
+    member _.viewport<'t>(x: DSLElement<'t>, value: Size) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.ViewportProperty, value, ValueNone) ]
         
-        /// <summary>
-        /// Sets the extent of the scrollable content.
-        /// </summary>
-        static member extent<'t when 't :> ScrollViewer>(value: Size) =
-            AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.ExtentProperty, value, ValueNone)
-
-        static member isExpanded<'t when 't :> ScrollViewer>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(ScrollViewer.IsExpandedProperty, value, ValueNone)
-
-        static member largeChange<'t when 't :> ScrollViewer>(value: Size) =
-            AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.LargeChangeProperty, value, ValueNone)
-
-        /// <summary>
-        /// Sets the current scroll offset.
-        /// </summary>
-        static member offset<'t when 't :> ScrollViewer>(value: Vector) =
-            AttrBuilder<'t>.CreateProperty<Vector>(ScrollViewer.OffsetProperty, value, ValueNone)
-
-        static member onScrollChanged<'t when 't :> ScrollViewer>(func: ScrollChangedEventArgs -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<ScrollChangedEventArgs>(ScrollViewer.ScrollChangedEvent, func, ?subPatchOptions = subPatchOptions)
-
-        static member smallChange<'t when 't :> ScrollViewer>(value: Size) =
-            AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.SmallChangeProperty, value, ValueNone)
-
-        /// <summary>
-        /// Sets the size of the viewport on the scrollable content.
-        /// </summary>
-        static member viewport<'t when 't :> ScrollViewer>(value: Size) =
-            AttrBuilder<'t>.CreateProperty<Size>(ScrollViewer.ViewportProperty, value, ValueNone)
-            
-        /// <summary>
-        /// Sets the vertical scrollbar value.
-        /// </summary>
-        static member verticalScrollBarValue<'t when 't :> ScrollViewer>(value: double) =
-            AttrBuilder<'t>.CreateProperty<double>(ScrollViewer.VerticalScrollBarValueProperty, value, ValueNone)
-            
-         /// <summary>
-        /// Sets the horizontal scrollbar value.
-        /// </summary>
-        static member horizontalScrollBarValue<'t when 't :> ScrollViewer>(value: double) =
-            AttrBuilder<'t>.CreateProperty<double>(ScrollViewer.HorizontalScrollBarValueProperty, value, ValueNone)
+    /// <summary>
+    /// Sets the vertical scrollbar value.
+    /// </summary>
+    [<CustomOperation("verticalScrollBarValue")>]
+    member _.verticalScrollBarValue<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(ScrollViewer.VerticalScrollBarValueProperty, value, ValueNone) ]
+        
+     /// <summary>
+    /// Sets the horizontal scrollbar value.
+    /// </summary>
+    [<CustomOperation("horizontalScrollBarValue")>]
+    member _.horizontalScrollBarValue<'t>(x: DSLElement<'t>, value: double) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<double>(ScrollViewer.HorizontalScrollBarValueProperty, value, ValueNone) ]

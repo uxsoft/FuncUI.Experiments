@@ -4,7 +4,6 @@ open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.HeaderedItemsControl
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
    
 type TreeViewItemBuilder<'t when 't :> TreeViewItem>() =

@@ -2,7 +2,6 @@ module Avalonia.FuncUI.Experiments.DSL.InputElement
 
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Layoutable
-open Avalonia.FuncUI.Types
 open Avalonia.Interactivity
 open Avalonia.FuncUI.Builder
 open Avalonia.Input

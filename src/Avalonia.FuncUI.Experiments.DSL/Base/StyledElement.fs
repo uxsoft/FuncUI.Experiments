@@ -2,7 +2,6 @@ namespace Avalonia.FuncUI.Experiments.DSL.StyledElement
 
 open Avalonia
 open Avalonia.FuncUI.Experiments.DSL.Common
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 open Avalonia.Styling
 open Avalonia.Controls

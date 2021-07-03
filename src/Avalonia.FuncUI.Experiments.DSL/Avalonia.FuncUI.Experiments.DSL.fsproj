@@ -36,7 +36,6 @@
         <Compile Include="Primitives\Track.fs" />
         <Compile Include="Primitives\Popup.fs" />
         <Compile Include="Primitives\Thumb.fs" />
-        <Compile Include="Primitives\AccessText.fs" />
         <Compile Include="Primitives\RangeBase.fs" />
         <Compile Include="Primitives\ScrollBar.fs" />
         <Compile Include="Panels\Canvas.fs" />
@@ -54,7 +53,10 @@
         <Compile Include="Shapes\Polyline.fs" />
         <Compile Include="Shapes\Polygon.fs" />
         <Compile Include="Shapes\Path.fs" />
-
+        <Compile Include="Decorators\Decorator.fs" />
+        <Compile Include="Decorators\LayoutTransformControl.fs" />
+        <Compile Include="Decorators\ViewBox.fs" />
+        <Compile Include="Decorators\Border.fs" />
         <Compile Include="Items\ListBoxItem.fs" />
         <Compile Include="Items\ListBox.fs" />
         <Compile Include="Items\TabStrip.fs" />
@@ -69,18 +71,16 @@
         <Compile Include="Items\MenuBase.fs" />
         <Compile Include="Items\Menu.fs" />
         <Compile Include="Items\MenuItem.fs" />
-        
+        <Compile Include="Items\ContextMenu.fs" />
+        <Compile Include="Ranges\Slider.fs" />
+        <Compile Include="Ranges\ProgressBar.fs" />
         <Compile Include="Components\LazyView.fs" />
-        
         <Compile Include="Components\DataValidationErrors.fs" />
-
         <Compile Include="Calendar\Calendar.fs" />
         <Compile Include="Calendar\CalendarDatePicker.fs" />
         <Compile Include="DatePicker.fs" />
         <Compile Include="TimePicker.fs" />
         <Compile Include="TickBar.fs" />
-
-        
         <Compile Include="AutoCompleteBox.fs" />
         <Compile Include="Button.fs" />
         <Compile Include="ToggleButton.fs" />
@@ -88,27 +88,19 @@
         <Compile Include="Spinner.fs" />
         <Compile Include="ButtonSpinner.fs" />
         <Compile Include="NumericUpDown.fs" />
-        <Compile Include="Decorator.fs" />
-        <Compile Include="Border.fs" />
-        
         <Compile Include="CheckBox.fs" />
-        
         <Compile Include="Image.fs" />
-        <Compile Include="ContextMenu.fs" />
         <Compile Include="GridSplitter.fs" />
-        <Compile Include="ProgressBar.fs" />
         <Compile Include="RadioButton.fs" />
         <Compile Include="RepeatButton.fs" />
         <Compile Include="ScrollViewer.fs" />
         <Compile Include="Separator.fs" />
-        <Compile Include="Slider.fs" />
         <Compile Include="SplitView.fs" />
         <Compile Include="Expander.fs" />
-        <Compile Include="LayoutTransformControl.fs" />
         <Compile Include="TextBlock.fs" />
         <Compile Include="TextBox.fs" />
+        <Compile Include="AccessText.fs" />
         <Compile Include="ToolTip.fs" />
-        <Compile Include="ViewBox.fs" />
         <Compile Include="DSL.fs" />
         <Content Include="icon.png" />
     </ItemGroup>

@@ -4,7 +4,6 @@ open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
-open Avalonia.Media.Immutable
 open Avalonia.Media
 open Avalonia.FuncUI.Experiments.DSL.Control
 

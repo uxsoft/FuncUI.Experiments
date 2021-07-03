@@ -1,84 +1,91 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.TextBox
 
-[<AutoOpen>]
-module TextBox =  
-    open Avalonia.Controls
-    open Avalonia.Layout
-    open Avalonia.Media.Immutable
-    open Avalonia.Media
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-    
-    let create (attrs: IAttr<TextBox> list): IView<TextBox> =
-        ViewBuilder.Create<TextBox>(attrs)
-    
-    type TextBox with
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open Avalonia.Layout
+open Avalonia.Media
+open Avalonia.FuncUI.Builder
 
-        static member acceptsReturn<'t when 't :> TextBox>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(TextBox.AcceptsReturnProperty, value, ValueNone)
+type TextBoxBuilder<'t when 't :> TextBox>() =
+    inherit TemplatedControlBuilder<'t>()
 
-        static member acceptsTab<'t when 't :> TextBox>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(TextBox.AcceptsTabProperty, value, ValueNone)        
+    [<CustomOperation("acceptsReturn")>]
+    member _.acceptsReturn<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TextBox.AcceptsReturnProperty, value, ValueNone) ]
 
-        static member caretIndex<'t when 't :> TextBox>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(TextBox.CaretIndexProperty, value, ValueNone)                
-                        
-        static member isReadOnly<'t when 't :> TextBox>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(TextBox.IsReadOnlyProperty, value, ValueNone)
+    [<CustomOperation("acceptsTab")>]
+    member _.acceptsTab<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TextBox.AcceptsTabProperty, value, ValueNone) ]        
 
-        static member horizontalContentAlignment<'t when 't :> TextBox>(value: HorizontalAlignment) =
-            AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(TextBox.HorizontalContentAlignmentProperty, value, ValueNone)
+    [<CustomOperation("caretIndex")>]
+    member _.caretIndex<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(TextBox.CaretIndexProperty, value, ValueNone) ]                
+                    
+    [<CustomOperation("isReadOnly")>]
+    member _.isReadOnly<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TextBox.IsReadOnlyProperty, value, ValueNone) ]
 
-        static member passwordChar<'t when 't :> TextBox>(value: char) =
-            AttrBuilder<'t>.CreateProperty<char>(TextBox.PasswordCharProperty, value, ValueNone)
-            
-        static member selectionBrush<'t when 't :> TextBox>(value: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(TextBox.SelectionBrushProperty, value, ValueNone)
-            
-        static member selectionBrush<'t when 't :> TextBox>(color: string) =
-            color |> Color.Parse |> ImmutableSolidColorBrush |> TextBox.selectionBrush
-            
-        static member selectionForegroundBrush<'t when 't :> TextBox>(value: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(TextBox.SelectionForegroundBrushProperty, value, ValueNone)
-            
-        static member selectionForegroundBrush<'t when 't :> TextBox>(color: string) =
-            color |> Color.Parse |> ImmutableSolidColorBrush |> TextBox.selectionForegroundBrush       
-            
-        static member caretBrush<'t when 't :> TextBox>(value: IBrush) =
-            AttrBuilder<'t>.CreateProperty<IBrush>(TextBox.CaretBrushProperty, value, ValueNone)
-            
-        static member caretBrush<'t when 't :> TextBox>(color: string) =
-            color |> Color.Parse |> ImmutableSolidColorBrush |> TextBox.selectionBrush
-            
-        static member selectionStart<'t when 't :> TextBox>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(TextBox.SelectionStartProperty, value, ValueNone)     
-            
-        static member selectionEnd<'t when 't :> TextBox>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(TextBox.SelectionEndProperty, value, ValueNone)     
-            
-        static member maxLength<'t when 't :> TextBox>(value: int) =
-            AttrBuilder<'t>.CreateProperty<int>(TextBox.MaxLengthProperty, value, ValueNone)     
-            
-        static member text<'t when 't :> TextBox>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(TextBox.TextProperty, value, ValueNone)
-            
-        static member onTextChanged<'t when 't :> TextBox>(func: string -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<string>(TextBox.TextProperty, func, ?subPatchOptions = subPatchOptions)
-            
-        static member textAlignment<'t when 't :> TextBox>(alignment: TextAlignment) =
-            AttrBuilder<'t>.CreateProperty<TextAlignment>(TextBox.TextAlignmentProperty, alignment, ValueNone)
-            
-        static member textWrapping<'t when 't :> TextBox>(value: TextWrapping) =
-            AttrBuilder<'t>.CreateProperty<TextWrapping>(TextBox.TextWrappingProperty, value, ValueNone)
-            
-        static member useFloatingWatermark<'t when 't :> TextBox>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(TextBox.UseFloatingWatermarkProperty, value, ValueNone)
-            
-        static member newLine<'t when 't :> TextBox>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(TextBox.NewLineProperty, value, ValueNone)
+    [<CustomOperation("horizontalContentAlignment")>]
+    member _.horizontalContentAlignment<'t>(x: DSLElement<'t>, value: HorizontalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(TextBox.HorizontalContentAlignmentProperty, value, ValueNone) ]
 
-        static member verticalContentAlignment<'t when 't :> TextBox>(value: VerticalAlignment) =
-            AttrBuilder<'t>.CreateProperty<VerticalAlignment>(TextBox.VerticalContentAlignmentProperty, value, ValueNone)
-            
-        static member watermark<'t when 't :> TextBox>(value: string) =
-            AttrBuilder<'t>.CreateProperty<string>(TextBox.WatermarkProperty, value, ValueNone)
+    [<CustomOperation("passwordChar")>]
+    member _.passwordChar<'t>(x: DSLElement<'t>, value: char) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<char>(TextBox.PasswordCharProperty, value, ValueNone) ]
+        
+    [<CustomOperation("selectionBrush")>]
+    member _.selectionBrush<'t>(x: DSLElement<'t>, value: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(TextBox.SelectionBrushProperty, value, ValueNone) ]
+        
+    [<CustomOperation("selectionForegroundBrush")>]
+    member _.selectionForegroundBrush<'t>(x: DSLElement<'t>, value: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(TextBox.SelectionForegroundBrushProperty, value, ValueNone) ]  
+        
+    [<CustomOperation("caretBrush")>]
+    member _.caretBrush<'t>(x: DSLElement<'t>, value: IBrush) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(TextBox.CaretBrushProperty, value, ValueNone) ]
+        
+    [<CustomOperation("selectionStart")>]
+    member _.selectionStart<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(TextBox.SelectionStartProperty, value, ValueNone) ]     
+        
+    [<CustomOperation("selectionEnd")>]
+    member _.selectionEnd<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(TextBox.SelectionEndProperty, value, ValueNone) ]     
+        
+    [<CustomOperation("maxLength")>]
+    member _.maxLength<'t>(x: DSLElement<'t>, value: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(TextBox.MaxLengthProperty, value, ValueNone) ]     
+        
+    [<CustomOperation("text")>]
+    member _.text<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(TextBox.TextProperty, value, ValueNone) ]
+        
+    [<CustomOperation("onTextChanged")>]
+    member _.onTextChanged<'t>(x: DSLElement<'t>, func: string -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<string>(TextBox.TextProperty, func) ]
+        
+    [<CustomOperation("textAlignment")>]
+    member _.textAlignment<'t>(x: DSLElement<'t>, alignment: TextAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<TextAlignment>(TextBox.TextAlignmentProperty, alignment, ValueNone) ]
+        
+    [<CustomOperation("textWrapping")>]
+    member _.textWrapping<'t>(x: DSLElement<'t>, value: TextWrapping) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<TextWrapping>(TextBox.TextWrappingProperty, value, ValueNone) ]
+        
+    [<CustomOperation("useFloatingWatermark")>]
+    member _.useFloatingWatermark<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TextBox.UseFloatingWatermarkProperty, value, ValueNone) ]
+        
+    [<CustomOperation("newLine")>]
+    member _.newLine<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(TextBox.NewLineProperty, value, ValueNone) ]
+
+    [<CustomOperation("verticalContentAlignment")>]
+    member _.verticalContentAlignment<'t>(x: DSLElement<'t>, value: VerticalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<VerticalAlignment>(TextBox.VerticalContentAlignmentProperty, value, ValueNone) ]
+        
+    [<CustomOperation("watermark")>]
+    member _.watermark<'t>(x: DSLElement<'t>, value: string) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<string>(TextBox.WatermarkProperty, value, ValueNone) ]

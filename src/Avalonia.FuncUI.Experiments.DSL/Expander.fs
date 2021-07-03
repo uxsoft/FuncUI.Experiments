@@ -1,27 +1,26 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.Expander
 
-open Avalonia.FuncUI.DSL
+open Avalonia.Animation
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
+open Avalonia.FuncUI.Builder
 
-[<AutoOpen>]
-module Expander =
-    open Avalonia.Animation
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-   
-    let create (attrs: IAttr<Expander> list): IView<Expander> =
-        ViewBuilder.Create<Expander>(attrs)
+type ExpanderBuilder<'t when 't :> Expander>() =
+    inherit HeaderedContentControlBuilder<'t>()
 
-    type Expander with            
+    [<CustomOperation("contentTransition")>]
+    member _.contentTransition<'t>(x: DSLElement<'t>, value: IPageTransition) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IPageTransition>(Expander.ContentTransitionProperty, value, ValueNone) ]
 
-        static member contentTransition<'t when 't :> Expander>(value: IPageTransition) =
-            AttrBuilder<'t>.CreateProperty<IPageTransition>(Expander.ContentTransitionProperty, value, ValueNone)
+    [<CustomOperation("expandDirection")>]
+    member _.expandDirection<'t>(x: DSLElement<'t>, value: ExpandDirection) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<ExpandDirection>(Expander.ExpandDirectionProperty, value, ValueNone) ]
 
-        static member expandDirection<'t when 't :> Expander>(value: ExpandDirection) =
-            AttrBuilder<'t>.CreateProperty<ExpandDirection>(Expander.ExpandDirectionProperty, value, ValueNone)
+    [<CustomOperation("isExpanded")>]
+    member _.isExpanded<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Expander.IsExpandedProperty, value, ValueNone) ]
 
-        static member isExpanded<'t when 't :> Expander>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Expander.IsExpandedProperty, value, ValueNone)
-
-        static member onIsExpandedChanged<'t when 't :> Expander>(func: bool -> unit, ?subPatchOptions: SubPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription(Expander.IsExpandedProperty, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("onIsExpandedChanged")>]
+    member _.onIsExpandedChanged<'t>(x: DSLElement<'t>, func: bool -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription(Expander.IsExpandedProperty, func) ]

@@ -3,7 +3,6 @@
 open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Panel
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 
 type UniformGridBuilder<'t when 't :> UniformGrid>() =

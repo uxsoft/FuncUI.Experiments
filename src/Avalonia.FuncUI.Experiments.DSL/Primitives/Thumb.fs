@@ -4,7 +4,6 @@ open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
 open Avalonia.Input
 open Avalonia.Controls.Primitives
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 
 type ThumbBuilder<'t when 't :> Thumb>() =

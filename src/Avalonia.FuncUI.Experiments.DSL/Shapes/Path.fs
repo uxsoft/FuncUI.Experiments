@@ -5,7 +5,6 @@ open Avalonia.FuncUI.Experiments.DSL.Shape
 open Avalonia.Media
 open Avalonia.Controls.Shapes
 open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Types
  
 type PathBuilder<'t when 't :> Path>() =
     inherit ShapeBuilder<'t>()

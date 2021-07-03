@@ -4,7 +4,6 @@ open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
  
 type CarouselBuilder<'t when 't :> Carousel>() =

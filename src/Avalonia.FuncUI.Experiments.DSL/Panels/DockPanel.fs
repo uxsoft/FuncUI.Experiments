@@ -3,7 +3,6 @@ module Avalonia.FuncUI.Experiments.DSL.DockPanel
 open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Panel
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 
 type DockPanelBuilder<'t when 't :> DockPanel>() =

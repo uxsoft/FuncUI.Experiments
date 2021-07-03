@@ -1,12 +1,5 @@
 ﻿namespace Avalonia.FuncUI.Experiments.TestApp
 
-open Avalonia.Controls.Presenters
-open Avalonia.FuncUI.DSL
-open Avalonia.FuncUI.Experiments.DSL.Button
-open Avalonia.FuncUI.Experiments.DSL.ContentPresenter
-open Avalonia.FuncUI.Experiments.DSL.Control
-open Avalonia.FuncUI.Experiments.DSL.Layoutable
-open Avalonia.FuncUI.Experiments.DSL.Panel
 open Avalonia.Layout
 open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.DSL
@@ -28,7 +21,7 @@ module Counter =
         dockPanel {
             lastChildFill false
             
-            textBlock {
+            text {
                 dock Dock.Top
                 fontSize 48.0
                 verticalAlignment VerticalAlignment.Center

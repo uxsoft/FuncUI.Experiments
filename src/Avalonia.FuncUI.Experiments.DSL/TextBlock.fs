@@ -1,7 +1,6 @@
 module Avalonia.FuncUI.Experiments.DSL.TextBlock
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Control
-open Avalonia.Media.Immutable
 
 open Avalonia
 open Avalonia.Controls

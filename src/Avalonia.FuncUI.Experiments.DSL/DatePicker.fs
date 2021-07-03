@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Controls.Templates
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
  
 type DatePickerBuilder<'t when 't :> DatePicker>() =

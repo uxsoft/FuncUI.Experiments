@@ -1,7 +1,6 @@
 module FuncUI.Experiments.FileWatcher
 
 open System.IO
-open System.Reflection
 
 let start dir =
     let watcher = new FileSystemWatcher()

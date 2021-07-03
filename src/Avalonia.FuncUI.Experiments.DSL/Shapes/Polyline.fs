@@ -6,7 +6,6 @@ open Avalonia.Controls.Shapes
 open Avalonia.FuncUI.Builder
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Shape
-open Avalonia.FuncUI.Types
 
  
 type PolylineBuilder<'t when 't :> Polyline>() =

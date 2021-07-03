@@ -4,7 +4,6 @@ open System
 open System.Collections
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
-open FSharp.Data.UnitSystems.SI.UnitNames
 open Avalonia.Controls
 open Avalonia.Controls.Templates    
 open Avalonia.FuncUI.Types

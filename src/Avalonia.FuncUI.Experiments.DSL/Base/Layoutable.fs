@@ -4,7 +4,6 @@ open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.Visual
 open Avalonia.FuncUI.Builder
 open Avalonia
-open Avalonia.FuncUI.Types
 open Avalonia.Layout
           
 type LayoutableBuilder<'t when 't :> Layoutable>() =

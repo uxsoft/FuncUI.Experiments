@@ -5,7 +5,6 @@ open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
 open Avalonia.Interactivity
 open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Types
  
 type MenuBaseBuilder<'t when 't :> MenuBase>() =
     inherit SelectingItemsControlBuilder<'t>()

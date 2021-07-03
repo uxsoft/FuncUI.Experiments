@@ -5,7 +5,6 @@ open Avalonia.Controls.Templates
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
 open Avalonia.Layout
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
  
 type TabControlBuilder<'t when 't :> TabControl>() =

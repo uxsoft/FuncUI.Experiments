@@ -6,7 +6,6 @@ open Avalonia.Styling
 open Elmish
 open Avalonia
 open Avalonia.Controls.ApplicationLifetimes
-open Avalonia.Input
 open Avalonia.FuncUI
 open Avalonia.FuncUI.VirtualDom
 open Avalonia.FuncUI.Elmish

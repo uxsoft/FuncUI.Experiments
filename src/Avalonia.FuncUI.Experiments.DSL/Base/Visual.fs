@@ -4,7 +4,6 @@ open Avalonia
 open Avalonia.FuncUI.Experiments.DSL.Common
 open Avalonia.FuncUI.Experiments.DSL.StyledElement
 open Avalonia.Media
-open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
         
 type VisualBuilder<'t when 't :> Visual>() =

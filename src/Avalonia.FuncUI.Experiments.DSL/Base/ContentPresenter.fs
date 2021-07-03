@@ -9,7 +9,6 @@ open Avalonia.Controls.Presenters
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 open Avalonia.Media
-open Avalonia.Media.Immutable
 
 type ContentPresenterBuilder<'t when 't :> ContentPresenter>() =
     inherit ControlBuilder<'t>()

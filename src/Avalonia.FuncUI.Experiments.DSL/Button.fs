@@ -7,7 +7,6 @@ open Avalonia.FuncUI.Experiments.DSL.ContentControl
 open Avalonia.Interactivity
 open Avalonia.Input
 open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Types
  
 type ButtonBuilder<'t when 't :> Button>() =
     inherit ContentControlBuilder<'t>()
