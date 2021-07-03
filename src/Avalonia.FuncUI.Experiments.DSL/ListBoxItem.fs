@@ -1,18 +1,18 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.ListBoxItem
 
-[<AutoOpen>]
-module ListBoxItem =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-    
-    let create (attrs: IAttr<ListBoxItem> list): IView<ListBoxItem> =
-        ViewBuilder.Create<ListBoxItem>(attrs)
-     
-    type ListBoxItem with
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+ 
+type ListBoxItemBuilder<'t when 't :> ListBoxItem>() =
+    inherit ContentControlBuilder<'t>()
 
-        static member isSelected<'t when 't :> ListBoxItem>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(ListBoxItem.IsSelectedProperty, value, ValueNone)
+    [<CustomOperation("isSelected")>] 
+    member _.isSelected<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(ListBoxItem.IsSelectedProperty, value, ValueNone) ]
 
-        static member onIsSelectedChanged<'t when 't :> ListBoxItem>(func: bool -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<bool>(ListBoxItem.IsSelectedProperty, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("onIsSelectedChanged")>] 
+    member _.onIsSelectedChanged<'t>(x: DSLElement<'t>, func: bool -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(ListBoxItem.IsSelectedProperty, func) ]

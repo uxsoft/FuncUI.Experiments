@@ -1,28 +1,26 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.ComboBox
 
-[<AutoOpen>]
-module ComboBox =
-    open Avalonia.Controls
-    open Avalonia.Layout
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open Avalonia.Layout
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+
+type ComboBoxBuilder<'t when 't :> ComboBox>() =
+    inherit SelectingItemsControlBuilder<'t>() =
     
-    let create (attrs: IAttr<ComboBox> list): IView<ComboBox> =
-        ViewBuilder.Create<ComboBox>(attrs)
-    
-    type ComboBox with
-    
-        static member isDropDownOpen<'t when 't :> ComboBox>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(ComboBox.IsDropDownOpenProperty, value, ValueNone)
-            
-        static member horizontalContentAlignment<'t when 't :> ComboBox>(alignment: HorizontalAlignment) =
-            AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ComboBox.HorizontalContentAlignmentProperty, alignment, ValueNone)
-            
-        static member maxDropDownHeight<'t when 't :> ComboBox>(height: float) =
-            AttrBuilder<'t>.CreateProperty<float>(ComboBox.MaxDropDownHeightProperty, height, ValueNone)
-            
-        static member verticalContentAlignment<'t when 't :> ComboBox>(alignment: VerticalAlignment) =
-            AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ComboBox.VerticalContentAlignmentProperty, alignment, ValueNone)
-            
-        static member virtualizationMode<'t when 't :> ComboBox>(mode: ItemVirtualizationMode) =
-            AttrBuilder<'t>.CreateProperty<ItemVirtualizationMode>(ComboBox.VirtualizationModeProperty, mode, ValueNone)
+    member _.isDropDownOpen<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(ComboBox.IsDropDownOpenProperty, value, ValueNone) ]
+        
+    member _.horizontalContentAlignment<'t>(x: DSLElement<'t>, alignment: HorizontalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ComboBox.HorizontalContentAlignmentProperty, alignment, ValueNone) ]
+        
+    member _.maxDropDownHeight<'t>(x: DSLElement<'t>, height: float) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<float>(ComboBox.MaxDropDownHeightProperty, height, ValueNone) ]
+        
+    member _.verticalContentAlignment<'t>(x: DSLElement<'t>, alignment: VerticalAlignment) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ComboBox.VerticalContentAlignmentProperty, alignment, ValueNone) ]
+        
+    member _.virtualizationMode<'t>(x: DSLElement<'t>, mode: ItemVirtualizationMode) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<ItemVirtualizationMode>(ComboBox.VirtualizationModeProperty, mode, ValueNone) ]

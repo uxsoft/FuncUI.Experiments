@@ -27,6 +27,8 @@
         <Compile Include="Primitives\TemplatedControl.fs" />
 
         <Compile Include="Primitives\ContentControl.fs" />
+
+        <Compile Include="Primitives\ItemsControl.fs" />
         <Compile Include="Primitives\HeaderedContentControl.fs" />
         <Compile Include="Primitives\SelectingItemsControl.fs" />
         <Compile Include="Primitives\HeaderedItemsControl.fs" />
@@ -74,14 +76,14 @@
         <Compile Include="Decorator.fs" />
         <Compile Include="Border.fs" />
         <Compile Include="DataValidationErrors.fs" />
+        <Compile Include="ListBoxItem.fs" />
+        <Compile Include="ListBox.fs" />
         <Compile Include="ComboBoxItem.fs" />
         <Compile Include="ComboBox.fs" />
         <Compile Include="CheckBox.fs" />
         <Compile Include="Carousel.fs" />
         <Compile Include="Image.fs" />
-        <Compile Include="ListBox.fs" />
         <Compile Include="RangeBase.fs" />
-        <Compile Include="ListBoxItem.fs" />
         <Compile Include="MenuBase.fs" />
         <Compile Include="Menu.fs" />
         <Compile Include="ContextMenu.fs" />

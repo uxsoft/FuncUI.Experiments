@@ -1,13 +1,9 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.ComboBoxItem
 
-[<AutoOpen>]
-module ComboBoxItem =
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
-    
-    let create (attrs: IAttr<ComboBoxItem> list): IView<ComboBoxItem> =
-        ViewBuilder.Create<ComboBoxItem>(attrs)
-    
-    type ComboBoxItem with
-        end
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.ListBoxItem
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+
+type ComboBoxItemBuilder<'t when 't :> ComboBoxItem>() =
+    inherit ListBoxItemBuilder<'t>()

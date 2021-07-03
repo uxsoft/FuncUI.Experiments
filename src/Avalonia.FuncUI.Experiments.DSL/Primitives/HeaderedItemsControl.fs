@@ -1,24 +1,22 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL
+﻿module Avalonia.FuncUI.Experiments.DSL.HeaderedItemsControl
 
-[<AutoOpen>]
-module HeaderedItemsControl =
-    open Avalonia.Controls.Primitives
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+
+open Avalonia.Controls.Primitives
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Primitives.ItemsControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+
+type HeaderedItemsControlBuilder<'t when 't :> HeaderedItemsControl>() =
+    inherit ItemsControlBuilder<'t>()
     
-    let create (attrs: IAttr<HeaderedItemsControl> list): IView<HeaderedItemsControl> =
-        ViewBuilder.Create<HeaderedItemsControl>(attrs)
-            
-    type HeaderedItemsControl with
     
-        static member header<'t when 't :> HeaderedItemsControl>(text: string) =
-            AttrBuilder<'t>.CreateProperty<string>(HeaderedItemsControl.HeaderProperty, text, ValueNone)
-            
-        static member header<'t when 't :> HeaderedItemsControl>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(HeaderedItemsControl.HeaderProperty, value, ValueNone)
-            
-        static member header<'t when 't :> HeaderedItemsControl>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(HeaderedItemsControl.HeaderProperty, value)
-            
-        static member header<'t when 't :> HeaderedItemsControl>(value: IView) =
-            value |> Some |> HeaderedItemsControl.header
+    [<CustomOperation("header")>] 
+    member _.header<'t, 'c when 't :> HeaderedItemsControl and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
+        let prop = 
+            match box value with
+            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(HeaderedItemsControl.HeaderProperty, Some view)
+            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(HeaderedItemsControl.HeaderProperty, text, ValueNone)
+            | _ -> AttrBuilder<'t>.CreateProperty<obj>(HeaderedItemsControl.HeaderProperty, value, ValueNone)
+        
+        x @@ [ prop ]

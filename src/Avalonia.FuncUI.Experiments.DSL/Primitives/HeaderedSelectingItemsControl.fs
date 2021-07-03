@@ -1,23 +1,20 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.HeaderedSelectingItemsControl
 
-[<AutoOpen>]
-module HeaderedSelectingItemsControl =
-    open Avalonia.Controls.Primitives
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open Avalonia.Controls.Primitives
+open Avalonia.FuncUI.Builder
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open Avalonia.FuncUI.Types
     
-    let create (attrs: IAttr<HeaderedSelectingItemsControl> list): IView<HeaderedSelectingItemsControl> =
-        ViewBuilder.Create<HeaderedSelectingItemsControl>(attrs)
+type HeaderedSelectingItemsControlBuilder<'t when 't :> HeaderedSelectingItemsControl>() =
+    inherit SelectingItemsControlBuilder<'t>()
     
-    type HeaderedSelectingItemsControl with
-        static member header<'t when 't :> HeaderedSelectingItemsControl>(text: string) =
-            AttrBuilder<'t>.CreateProperty<string>(HeaderedSelectingItemsControl.HeaderProperty, text, ValueNone)
-            
-        static member header<'t when 't :> HeaderedSelectingItemsControl>(value: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(HeaderedSelectingItemsControl.HeaderProperty, value, ValueNone)
-            
-        static member header<'t when 't :> HeaderedSelectingItemsControl>(value: IView option) =
-            AttrBuilder<'t>.CreateContentSingle(HeaderedSelectingItemsControl.HeaderProperty, value)
-            
-        static member header<'t when 't :> HeaderedSelectingItemsControl>(value: IView) =
-            value |> Some |> HeaderedSelectingItemsControl.header
+    [<CustomOperation("header")>] 
+    member _.header<'t, 'c when 't :> HeaderedSelectingItemsControl and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
+        let prop = 
+            match box value with
+            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(HeaderedSelectingItemsControl.HeaderProperty, Some view)
+            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(HeaderedSelectingItemsControl.HeaderProperty, text, ValueNone)
+            | _ -> AttrBuilder<'t>.CreateProperty<obj>(HeaderedSelectingItemsControl.HeaderProperty, value, ValueNone)
+        
+        x @@ [ prop ]

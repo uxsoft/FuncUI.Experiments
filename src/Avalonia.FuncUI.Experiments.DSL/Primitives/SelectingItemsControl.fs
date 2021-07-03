@@ -1,31 +1,35 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
 
-[<AutoOpen>]
-module SelectingItemsControl =
-    open Avalonia.Controls.Primitives
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Builder
-    open Avalonia.FuncUI.Types
-    
-    let create (attrs: IAttr<SelectingItemsControl> list): IView<SelectingItemsControl> =
-        ViewBuilder.Create<SelectingItemsControl>(attrs)
-     
-    type SelectingItemsControl with
+open Avalonia.Controls.Primitives
+open Avalonia.Controls
+open Avalonia.FuncUI.Builder
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.Primitives.ItemsControl
+open Avalonia.FuncUI.Types
+ 
+type SelectingItemsControlBuilder<'t when 't :> SelectingItemsControl>() =
+    inherit ItemsControlBuilder<'t>()
 
-        static member autoScrollToSelectedItem<'t when 't :> SelectingItemsControl>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(SelectingItemsControl.AutoScrollToSelectedItemProperty, value, ValueNone)
-            
-        static member selectedIndex<'t when 't :> SelectingItemsControl>(index: int) =
-            AttrBuilder<'t>.CreateProperty<int>(SelectingItemsControl.SelectedIndexProperty, index, ValueNone)
-            
-        static member onSelectedIndexChanged<'t when 't :> SelectingItemsControl>(func: int -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<int>(SelectingItemsControl.SelectedIndexProperty, func, ?subPatchOptions = subPatchOptions)
-            
-        static member selectedItem<'t when 't :> SelectingItemsControl>(item: obj) =
-            AttrBuilder<'t>.CreateProperty<obj>(SelectingItemsControl.SelectedItemProperty, item, ValueNone)
-            
-        static member onSelectedItemChanged<'t when 't :> SelectingItemsControl>(func: obj -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<obj>(SelectingItemsControl.SelectedItemProperty, func, ?subPatchOptions = subPatchOptions)
-            
-        static member onSelectionChanged<'t when 't :> SelectingItemsControl>(func: SelectionChangedEventArgs -> unit, ?subPatchOptions) =
-            AttrBuilder<'t>.CreateSubscription<SelectionChangedEventArgs>(SelectingItemsControl.SelectionChangedEvent, func, ?subPatchOptions = subPatchOptions)
+    [<CustomOperation("autoScrollToSelectedItem")>] 
+    member _.autoScrollToSelectedItem<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(SelectingItemsControl.AutoScrollToSelectedItemProperty, value, ValueNone) ]
+        
+    [<CustomOperation("selectedIndex")>] 
+    member _.selectedIndex<'t>(x: DSLElement<'t>, index: int) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<int>(SelectingItemsControl.SelectedIndexProperty, index, ValueNone) ]
+        
+    [<CustomOperation("onSelectedIndexChanged")>] 
+    member _.onSelectedIndexChanged<'t>(x: DSLElement<'t>, func: int -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<int>(SelectingItemsControl.SelectedIndexProperty, func) ]
+        
+    [<CustomOperation("selectedItem")>] 
+    member _.selectedItem<'t>(x: DSLElement<'t>, item: obj) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<obj>(SelectingItemsControl.SelectedItemProperty, item, ValueNone) ]
+        
+    [<CustomOperation("onSelectedItemChanged")>] 
+    member _.onSelectedItemChanged<'t>(x: DSLElement<'t>, func: obj -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<obj>(SelectingItemsControl.SelectedItemProperty, func) ]
+        
+    [<CustomOperation("onSelectionChanged")>] 
+    member _.onSelectionChanged<'t>(x: DSLElement<'t>, func: SelectionChangedEventArgs -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<SelectionChangedEventArgs>(SelectingItemsControl.SelectionChangedEvent, func) ]

@@ -1,19 +1,17 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+module Avalonia.FuncUI.Experiments.DSL.Carousel
 
-[<AutoOpen>]
-module Carousel =
-    open Avalonia.Animation
-    open Avalonia.Controls
-    open Avalonia.FuncUI.Types
-    open Avalonia.FuncUI.Builder
+open Avalonia.Animation
+open Avalonia.Controls
+open Avalonia.FuncUI.Experiments.DSL.Common
+open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open Avalonia.FuncUI.Types
+open Avalonia.FuncUI.Builder
+ 
+type CarouselBuilder<'t when 't :> Carousel>() =
+    inherit SelectingItemsControlBuilder<'t>()
+
+    member _.isVirtualized<'t>(x: DSLElement<'t>, value: bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Carousel.IsVirtualizedProperty, value, ValueNone) ]
     
-    let create (attrs: IAttr<Carousel> list): IView<Carousel> =
-        ViewBuilder.Create<Carousel>(attrs)
-     
-    type Carousel with
-
-        static member isVirtualized<'t when 't :> Carousel>(value: bool) =
-            AttrBuilder<'t>.CreateProperty<bool>(Carousel.IsVirtualizedProperty, value, ValueNone)
-        
-        static member pageTransition<'t when 't :> Carousel>(transition: IPageTransition) =
-            AttrBuilder<'t>.CreateProperty<IPageTransition>(Carousel.PageTransitionProperty, transition, ValueNone)
+    member _.pageTransition<'t>(x: DSLElement<'t>, transition: IPageTransition) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IPageTransition>(Carousel.PageTransitionProperty, transition, ValueNone) ]
