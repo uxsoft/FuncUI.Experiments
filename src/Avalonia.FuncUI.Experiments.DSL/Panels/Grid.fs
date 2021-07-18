@@ -52,7 +52,7 @@ type GridBuilder<'t when 't :> Grid>() =
     
     [<CustomOperation("showGridLines")>] 
     member _.showGridLines<'t>(x: DSLElement<'t>, value: bool) =
-        AttrBuilder<'t>.CreateProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone)
+        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone) ]
 
     [<CustomOperation("columnDefinitions")>] 
     member _.columnDefinitions<'t>(x: DSLElement<'t>, value: string) =
@@ -60,13 +60,15 @@ type GridBuilder<'t when 't :> Grid>() =
         let getter : 't -> ColumnDefinitions = fun view -> view.ColumnDefinitions
         let setter : 't * ColumnDefinitions -> unit = fun (view, value) -> view.ColumnDefinitions <- value
         
-        AttrBuilder<'t>.CreateProperty<_>(
-            "ColumnDefinitions",
-            columnDefinitions,
-            ValueSome getter,
-            ValueSome setter,
-            ValueSome Internals.compareColumnDefinitions,
-            (fun () -> ColumnDefinitions()))
+        let attr =
+            AttrBuilder<'t>.CreateProperty<_>(
+                "ColumnDefinitions",
+                columnDefinitions,
+                ValueSome getter,
+                ValueSome setter,
+                ValueSome Internals.compareColumnDefinitions,
+                (fun () -> ColumnDefinitions()))
+        x @@ [ attr ]
 
     [<CustomOperation("rowDefinitions")>] 
     member _.rowDefinitions<'t>(x: DSLElement<'t>, value: string) =
@@ -74,10 +76,12 @@ type GridBuilder<'t when 't :> Grid>() =
         let getter : 't -> RowDefinitions = fun view -> view.RowDefinitions
         let setter : 't * RowDefinitions -> unit = fun (view, value) -> view.RowDefinitions <- value
         
-        AttrBuilder<'t>.CreateProperty<_>(
-            "RowDefinitions",
-            rowDefinitions,
-            ValueSome getter,
-            ValueSome setter,
-            ValueSome Internals.compareRowDefinitions,
-            (fun () -> RowDefinitions()))
+        let attr =
+            AttrBuilder<'t>.CreateProperty<_>(
+                "RowDefinitions",
+                rowDefinitions,
+                ValueSome getter,
+                ValueSome setter,
+                ValueSome Internals.compareRowDefinitions,
+                (fun () -> RowDefinitions()))
+        x @@ [ attr ]
