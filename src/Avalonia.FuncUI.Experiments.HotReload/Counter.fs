@@ -3,13 +3,14 @@
 open Avalonia.Controls
 open Avalonia.FuncUI.DSL
 open Avalonia.Layout
+open Elmish
 
 type Model = { count : int }
-let init () = { count = 0 }, []
-
 type Msg = Increment | Decrement | Reset
 
-let update (msg: Msg) (model: Model) =
+let init () : Model * Cmd<Msg> = { count = 0 }, []
+
+let update (msg: Msg) (model: Model) : Model * Cmd<Msg> =
     match msg with
     | Increment -> { model with count = model.count + 1 }, []
     | Decrement -> { model with count = model.count - 1 }, []
@@ -31,7 +32,7 @@ let view (state: Model) (dispatch) =
             Button.create [
                 Button.dock Dock.Bottom
                 Button.onClick (fun _ -> dispatch Increment)
-                Button.content "+"
+                Button.content "PLUS"
             ]
             TextBlock.create [
                 TextBlock.dock Dock.Top

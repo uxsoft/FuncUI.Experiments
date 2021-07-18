@@ -19,11 +19,8 @@ let update (msg: Msg) (state: State) : State =
 
 
 let view (state: State) (dispatch) =
-    tabControl {
-        background (ImmutableSolidColorBrush Colors.Red)
-        
+    tabControl {        
         tabItem {
-            background (ImmutableSolidColorBrush Colors.Green)
             header "Grid"
             
             grid {
