@@ -11,6 +11,20 @@ open Avalonia.FuncUI.Builder
 type ItemsControlBuilder<'t when 't :> ItemsControl>() =
     inherit TemplatedControlBuilder<'t>()
 
+    override _.Flatten x =
+        let views = 
+            x.Children
+            |> List.filter (fun it -> it :? IView)
+            |> List.map (fun it -> it :?> IView)
+        
+        let prop =
+            if views.Length > 0 then
+                AttrBuilder<'t>.CreateContentMultiple(ItemsControl.ItemsProperty, views)
+            else
+                AttrBuilder<'t>.CreateProperty<IEnumerable>(ItemsControl.ItemsProperty, x.Children, ValueNone)
+        
+        x.Attributes @ [ prop ]
+    
     [<CustomOperation("viewItems")>] 
     member _.viewItems<'t>(x: DSLElement<'t>, views: IView list) =
         x @@ [ AttrBuilder<'t>.CreateContentMultiple(ItemsControl.ItemsProperty, views) ]

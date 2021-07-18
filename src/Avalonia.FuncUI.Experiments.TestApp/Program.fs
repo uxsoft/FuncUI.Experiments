@@ -14,10 +14,7 @@ type MainWindow() as this =
         base.Width <- 400.0
         base.Height <- 400.0
         
-        //this.VisualRoot.VisualRoot.Renderer.DrawFps <- true
-        //this.VisualRoot.VisualRoot.Renderer.DrawDirtyRects <- true
-
-        Elmish.Program.mkSimple (fun () -> Counter.init) Counter.update Counter.view
+        Elmish.Program.mkSimple (fun () -> AppLogic.init) AppLogic.update AppLogic.view
         |> Program.withHost this
         |> Program.run
 

@@ -26,10 +26,11 @@ type DSLBuilder<'t>() =
     member inline _.Combine(a: DSLElement<'t>, b: DSLElement<'t>) = a @@ b
 
     member inline x.For(s: DSLElement<'t>, f) = x.Combine(s, f ())
-        
-    member inline x.For(list: 'a seq, f: 'a -> DSLElement<'t>) =
-        Seq.map f list |> Seq.toList
 
+    member inline x.For(attr: IAttr<'t>, f: unit -> DSLElement<'t>) =
+        let x = f ()
+        x @@ [ attr ]
+    
     member inline x.Yield child =
         match box child with
         | null -> x.Zero()
