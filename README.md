@@ -1,3 +1,3 @@
 # FuncUI.Experiments
 
-Avalonia.FuncUI.Experiments.DSL <img src="https://buildstats.info/nuget/Fable.AntD" alt="badge"/>
+uxsoft.Avalonia.FuncUI.CEDSL <img src="https://buildstats.info/nuget/uxsoft.Avalonia.FuncUI.CEDSL" alt="badge"/>
