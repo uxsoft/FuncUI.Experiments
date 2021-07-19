@@ -27,7 +27,7 @@ let view (state: Model) (dispatch) =
             Button.create [
                 Button.dock Dock.Bottom
                 Button.onClick (fun _ -> dispatch Decrement)
-                Button.content "-"
+                Button.content "MINUS"
             ]
             Button.create [
                 Button.dock Dock.Bottom

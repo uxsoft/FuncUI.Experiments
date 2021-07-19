@@ -1,4 +1,4 @@
-﻿namespace FuncUI.Experiments
+﻿module FuncUI.Experiments.Program
 
 open System.Text.Json
 open Avalonia.Controls
@@ -11,16 +11,24 @@ open Avalonia.FuncUI.Components.Hosts
 open FuncUI.Experiments.Counter
 open Live.Avalonia
 
+let transferState<'t> oldState =
+    try
+        let json = JsonSerializer.Serialize oldState
+        let state = JsonSerializer.Deserialize<'t> json        
+        match box state with
+        | null -> None
+        | _ -> Some (state, [])
+    with _ -> None
+
 type MainControl(parent: Window) as this =
     inherit HostControl()
     do
         let hotInit () =
-            try
-                let json = JsonSerializer.Serialize parent.DataContext
-                let state = JsonSerializer.Deserialize<Model> json
-                System.Console.WriteLine $"Restored state %O{state}"
-                state, []
-            with _ -> Counter.init ()
+            match transferState<Model> parent.DataContext with
+            | Some newState ->
+                System.Console.WriteLine $"Restored state %O{newState}"
+                newState
+            | None -> Counter.init ()
         
         Elmish.Program.mkProgram hotInit Counter.update Counter.view
         |> Program.withHost this
@@ -48,12 +56,10 @@ type App() =
             base.OnFrameworkInitializationCompleted()
         | _ -> ()
 
-module Program =
-
-    [<EntryPoint>]
-    let main(args: string[]) =
-        AppBuilder
-            .Configure<App>()
-            .UsePlatformDetect()
-            .UseSkia()
-            .StartWithClassicDesktopLifetime(args)
+[<EntryPoint>]
+let main(args: string[]) =
+    AppBuilder
+        .Configure<App>()
+        .UsePlatformDetect()
+        .UseSkia()
+        .StartWithClassicDesktopLifetime(args)
