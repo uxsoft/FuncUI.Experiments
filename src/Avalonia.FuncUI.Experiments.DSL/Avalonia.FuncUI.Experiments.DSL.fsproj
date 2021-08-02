@@ -57,6 +57,7 @@
         <Compile Include="Decorators\LayoutTransformControl.fs" />
         <Compile Include="Decorators\ViewBox.fs" />
         <Compile Include="Decorators\Border.fs" />
+        <Compile Include="Decorators\AcrylicBorder.fs" />
         <Compile Include="Items\ListBoxItem.fs" />
         <Compile Include="Items\ListBox.fs" />
         <Compile Include="Items\TabStrip.fs" />

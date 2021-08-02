@@ -24,6 +24,7 @@ let path = Path.PathBuilder<Path>()
 let layoutTransform = LayoutTransformControl.LayoutTransformControlBuilder<LayoutTransformControl>()
 let viewBox = ViewBox.ViewBoxBuilder<Viewbox>()
 let border = Border.BorderBuilder<Border>()
+let acrylicBorder = AcrylicBorder.AcrylicBorderBuilder<ExperimentalAcrylicBorder>()
 
 let listBox = ListBox.ListBoxBuilder<ListBox>()
 let listBoxItem = ListBoxItem.ListBoxItemBuilder<ListBoxItem>()
