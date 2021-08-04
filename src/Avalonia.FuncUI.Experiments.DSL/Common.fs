@@ -25,11 +25,16 @@ type DSLBuilder<'t>() =
 
     member inline _.Combine(a: DSLElement<'t>, b: DSLElement<'t>) = a @@ b
 
-    member inline x.For(s: DSLElement<'t>, f) = x.Combine(s, f ())
+    member inline x.For(s: DSLElement<'t>, f) =
+        x.Combine(s, f ())
 
     member inline x.For(attr: IAttr<'t>, f: unit -> DSLElement<'t>) =
-        let x = f ()
-        x @@ [ attr ]
+        (f ()) @@ [ attr ]
+        
+    member inline x.For(items: 'item seq, f: 'item -> DSLElement<_>) =
+        items
+        |> Seq.map f 
+        |> Seq.fold (fun acc t -> x.Combine(acc, t)) (x.Zero())
     
     member inline x.Yield child =
         match box child with
