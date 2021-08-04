@@ -6,6 +6,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Controls.Shapes
 open Avalonia.FuncUI.Experiments.DSL
 
+let panel = Panel.PanelBuilder<Panel>()
 let canvas = Canvas.CanvasBuilder<Canvas>()
 let dockPanel = DockPanel.DockPanelBuilder<DockPanel>()
 let grid = Grid.GridBuilder<Grid>()

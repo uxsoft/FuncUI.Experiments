@@ -17,11 +17,11 @@ type DecoratorBuilder<'t when 't :> Decorator>() =
             let contentProp =
                 match lastChild with
                 | :? string as text ->
-                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, text, ValueNone)
+                    AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, text, ValueNone)
                 | :? IView as view ->
-                    AttrBuilder<'t>.CreateContentSingle(ContentControl.ContentProperty, Some view)
+                    AttrBuilder<'t>.CreateContentSingle(Decorator.ChildProperty, Some view)
                 | other ->
-                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, other, ValueNone)
+                    AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, other, ValueNone)
         
             x.Attributes @ [ contentProp ]
         
