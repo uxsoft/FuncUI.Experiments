@@ -24,28 +24,35 @@ let view (state: State) (dispatch) =
             header "Grid"
             
             grid {
-                rowDefinitions "*,*,*,*"
+                rowDefinitions "*, *, *, *, *"
                 margin (Thickness(2.))
                 
-                text {
-                    row 0
-                    fontSize 48.0
-                    verticalAlignment VerticalAlignment.Center
-                    horizontalAlignment HorizontalAlignment.Center
-                    text (string state.count)
+                border {
+                    label {
+                        row 0
+                        fontSize 48.0
+                        verticalAlignment VerticalAlignment.Center
+                        horizontalAlignment HorizontalAlignment.Center
+                        $"{state.count}"
+                    }
+                }
+                stackPanel {
+                    row 1
+                    for item in [1..5] do
+                        button { $"{item}" }
                 }
                 button {
-                    row 1
+                    row 2
                     onClick (fun _ -> dispatch Reset)
                     "reset"
                 }
                 button {
-                    row 2
+                    row 3
                     onClick (fun _ -> dispatch Decrement)
                     "-"
                 }
                 button {
-                    row 3
+                    row 4
                     onClick (fun _ -> dispatch Increment)
                     "+"
                 }
