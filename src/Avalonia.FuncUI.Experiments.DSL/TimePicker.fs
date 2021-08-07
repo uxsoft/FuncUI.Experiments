@@ -31,5 +31,5 @@ type TimePickerBuilder<'t when 't :> TimePicker>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, value, ValueNone) ]
     
     [<CustomOperation("onSelectedTimeChanged")>] 
-    member _.onSelectedTimeChanged<'t>(x: DSLElement<'t>, func: Nullable<TimeSpan> -> unit, ?subPatchOptions) =
+    member _.onSelectedTimeChanged<'t>(x: DSLElement<'t>, func: Nullable<TimeSpan> -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, func) ]

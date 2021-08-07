@@ -49,7 +49,7 @@ type AutoCompleteBoxBuilder<'t when 't :> AutoCompleteBox>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<obj>(AutoCompleteBox.SelectedItemProperty, value, ValueNone) ]
         
     [<CustomOperation("onSelectedItemChanged")>] 
-    member _.onSelectedItemChanged<'t>(x: DSLElement<'t>, func: obj -> unit, ?subPatchOptions) =
+    member _.onSelectedItemChanged<'t>(x: DSLElement<'t>, func: obj -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<obj>(AutoCompleteBox.SelectedItemProperty, func) ]
 
     [<CustomOperation("text")>] 
@@ -57,7 +57,7 @@ type AutoCompleteBoxBuilder<'t when 't :> AutoCompleteBox>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<string>(AutoCompleteBox.TextProperty, text, ValueNone) ]
         
     [<CustomOperation("onTextChanged")>] 
-    member _.onTextChanged<'t>(x: DSLElement<'t>, func: string -> unit, ?subPatchOptions) =
+    member _.onTextChanged<'t>(x: DSLElement<'t>, func: string -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<string>(AutoCompleteBox.TextProperty, func) ]
         
     [<CustomOperation("searchText")>] 
@@ -65,7 +65,7 @@ type AutoCompleteBoxBuilder<'t when 't :> AutoCompleteBox>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<string>(AutoCompleteBox.SearchTextProperty, text, ValueNone) ]
         
     [<CustomOperation("onSearchTextChanged")>] 
-    member _.onSearchTextChanged<'t>(x: DSLElement<'t>, func: string -> unit, ?subPatchOptions) =
+    member _.onSearchTextChanged<'t>(x: DSLElement<'t>, func: string -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<string>(AutoCompleteBox.SearchTextProperty, func) ]
         
     [<CustomOperation("filterMode")>] 

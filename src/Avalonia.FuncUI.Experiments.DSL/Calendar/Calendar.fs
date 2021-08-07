@@ -27,24 +27,24 @@ type CalendarBuilder<'t when 't :> Calendar>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<CalendarMode>(Calendar.DisplayModeProperty, value, ValueNone) ]
 
      [<CustomOperation("onDisplayModeChanged")>] 
-     member _.onDisplayModeChanged<'t>(x: DSLElement<'t>, func: CalendarMode -> unit, ?subPatchOptions) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<CalendarMode>(Calendar.DisplayModeProperty, func, ?subPatchOptions = subPatchOptions) ]
+     member _.onDisplayModeChanged<'t>(x: DSLElement<'t>, func: CalendarMode -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<CalendarMode>(Calendar.DisplayModeProperty, func) ]
 
      [<CustomOperation("selectionMode")>] 
      member _.selectionMode<'t>(x: DSLElement<'t>, value: CalendarSelectionMode) =
         x @@ [ AttrBuilder<'t>.CreateProperty<CalendarSelectionMode>(Calendar.SelectionModeProperty, value, ValueNone) ]
 
      [<CustomOperation("onSelectionModeChanged")>] 
-     member _.onSelectionModeChanged<'t>(x: DSLElement<'t>, func: CalendarSelectionMode  -> unit, ?subPatchOptions) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<CalendarSelectionMode >(Calendar.SelectionModeProperty, func, ?subPatchOptions = subPatchOptions) ]
+     member _.onSelectionModeChanged<'t>(x: DSLElement<'t>, func: CalendarSelectionMode  -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<CalendarSelectionMode >(Calendar.SelectionModeProperty, func) ]
 
      [<CustomOperation("selectedDate")>] 
      member _.selectedDate<'t>(x: DSLElement<'t>, value: DateTime) =
         x @@ [ AttrBuilder<'t>.CreateProperty<DateTime Nullable>(Calendar.SelectedDateProperty, Nullable value, ValueNone) ]
 
      [<CustomOperation("onSelectedDateChanged")>] 
-     member _.onSelectedDateChanged<'t>(x: DSLElement<'t>, func: Nullable<DateTime> -> unit, ?subPatchOptions) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTime Nullable>(Calendar.SelectedDateProperty, func, ?subPatchOptions = subPatchOptions) ]
+     member _.onSelectedDateChanged<'t>(x: DSLElement<'t>, func: Nullable<DateTime> -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTime Nullable>(Calendar.SelectedDateProperty, func) ]
 
      [<CustomOperation("displayDate")>] 
      member _.displayDate<'t>(x: DSLElement<'t>, value: DateTime) =

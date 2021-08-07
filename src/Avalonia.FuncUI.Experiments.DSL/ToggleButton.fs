@@ -19,11 +19,11 @@ type ToggleButtonBuilder<'t when 't :> ToggleButton>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<Nullable<bool>>(ToggleButton.IsCheckedProperty, Nullable value, ValueNone) ]
         
     [<CustomOperation("onChecked")>] 
-    member _.onChecked<'t>(x: DSLElement<'t>, func: RoutedEventArgs -> unit, ?subPatchOptions) =
+    member _.onChecked<'t>(x: DSLElement<'t>, func: RoutedEventArgs -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<RoutedEventArgs>(ToggleButton.CheckedEvent, func) ]
         
     [<CustomOperation("onUnchecked")>] 
-    member _.onUnchecked<'t>(x: DSLElement<'t>, func: RoutedEventArgs -> unit, ?subPatchOptions) =
+    member _.onUnchecked<'t>(x: DSLElement<'t>, func: RoutedEventArgs -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<RoutedEventArgs>(ToggleButton.UncheckedEvent, func) ]
 
     [<CustomOperation("onIndeterminate")>] 

@@ -30,8 +30,8 @@ type CalendarDatePickerBuilder<'t when 't :> CalendarDatePicker>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<bool>(CalendarDatePicker.IsDropDownOpenProperty, value, ValueNone) ]
 
      [<CustomOperation("onDropDownOpenChanged")>] 
-     member _.onDropDownOpenChanged<'t>(x: DSLElement<'t>, func: bool -> unit, ?subPatchOptions) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription(CalendarDatePicker.IsDropDownOpenProperty, func, ?subPatchOptions = subPatchOptions) ]
+     member _.onDropDownOpenChanged<'t>(x: DSLElement<'t>, func: bool -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription(CalendarDatePicker.IsDropDownOpenProperty, func) ]
     
      [<CustomOperation("isTodayHighlighted")>] 
      member _.isTodayHighlighted<'t>(x: DSLElement<'t>, value: bool) =
@@ -42,8 +42,8 @@ type CalendarDatePickerBuilder<'t when 't :> CalendarDatePicker>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<DateTime Nullable>(CalendarDatePicker.SelectedDateProperty, Nullable value, ValueNone) ]
 
      [<CustomOperation("onSelectedDateChanged")>] 
-     member _.onSelectedDateChanged<'t>(x: DSLElement<'t>, func: Nullable<DateTime> -> unit, ?subPatchOptions) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTime Nullable>(CalendarDatePicker.SelectedDateProperty, func, ?subPatchOptions = subPatchOptions) ]
+     member _.onSelectedDateChanged<'t>(x: DSLElement<'t>, func: Nullable<DateTime> -> unit) =
+        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTime Nullable>(CalendarDatePicker.SelectedDateProperty, func) ]
 
      [<CustomOperation("selectedDateFormat")>] 
      member _.selectedDateFormat<'t>(x: DSLElement<'t>, value: CalendarDatePickerFormat) =
