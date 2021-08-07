@@ -13,6 +13,12 @@ let create (attrs: IAttr<TextBlock> list): IView<TextBlock> =
 
 type TextBlockBuilder<'t when 't :> TextBlock>() =
     inherit ControlBuilder<'t>()
+    
+    override _.Flatten x =
+        match x.Children |> List.tryLast with
+        | None -> x.Attributes
+        | Some lastChild ->
+            x.Attributes @ [ AttrBuilder<'t>.CreateProperty(TextBlock.TextProperty, lastChild.ToString(), ValueNone) ]
         
     [<CustomOperation("text")>] 
     member _.text<'t>(x: DSLElement<'t>, value: string) =
