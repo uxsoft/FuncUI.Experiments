@@ -17,13 +17,12 @@ type ItemsControlBuilder<'t when 't :> ItemsControl>() =
             |> List.filter (fun it -> it :? IView)
             |> List.map (fun it -> it :?> IView)
         
-        let prop =
-            if views.Length > 0 then
-                AttrBuilder<'t>.CreateContentMultiple(ItemsControl.ItemsProperty, views)
-            else
-                AttrBuilder<'t>.CreateProperty<IEnumerable>(ItemsControl.ItemsProperty, x.Children, ValueNone)
+        if views.Length > 0 then
+            let prop = AttrBuilder<'t>.CreateContentMultiple(ItemsControl.ItemsProperty, views)
+            x.Attributes @ [ prop ]
+        else
+            x.Attributes
         
-        x.Attributes @ [ prop ]
     
     [<CustomOperation("viewItems")>] 
     member _.viewItems<'t>(x: DSLElement<'t>, views: IView list) =

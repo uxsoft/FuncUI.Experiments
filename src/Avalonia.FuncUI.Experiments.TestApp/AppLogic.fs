@@ -21,7 +21,7 @@ let update (msg: Msg) (state: State) : State =
 let view (state: State) (dispatch) =
     tabControl {        
         tabItem {
-            header "Grid"
+            header "Counter"
             
             grid {
                 rowDefinitions "*, *, *, *, *"
@@ -36,11 +36,7 @@ let view (state: State) (dispatch) =
                         $"{state.count}"
                     }
                 }
-                stackPanel {
-                    row 1
-                    for item in [1..5] do
-                        button { $"{item}" }
-                }
+
                 button {
                     row 2
                     onClick (fun _ -> dispatch Reset)
@@ -56,6 +52,29 @@ let view (state: State) (dispatch) =
                     onClick (fun _ -> dispatch Increment)
                     "+"
                 }
+            }
+        }
+        tabItem {
+            header "ComboBox"
+            
+            comboBox {
+                dataItems ([1..5] |> List.map (fun i -> $"item{i}"))
+                selectedItem "item2"
+            }
+        }
+        tabItem {
+            header "Code"
+            stackPanel {
+                label { "For" }
+                
+                for item in [1..5] do
+                    label { $"{item}" }
+                    
+                label { "Yield!" }
+                yield! [
+                    label { "item1" }
+                    label { "item2" }
+                ]
             }
         }
     }

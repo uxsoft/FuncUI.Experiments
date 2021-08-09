@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Avalonia.FuncUI.Experiments.HotReload", "src\Avalonia.FuncUI.Experiments.HotReload\Avalonia.FuncUI.Experiments.HotReload.fsproj", "{2378C946-DA1D-4B20-8BAE-B6FCCC508706}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Avalonia.FuncUI.Experiments.DSL", "src\Avalonia.FuncUI.Experiments.DSL\Avalonia.FuncUI.Experiments.DSL.fsproj", "{3F619605-74C6-4068-B5C2-C8A50B1DFE38}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Avalonia.FuncUI.Experiments.TestApp", "src\Avalonia.FuncUI.Experiments.TestApp\Avalonia.FuncUI.Experiments.TestApp.fsproj", "{BDEAFF24-0D53-400C-8574-81269717173E}"
@@ -22,18 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Debug|x64.Build.0 = Debug|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Debug|x86.Build.0 = Debug|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Release|x64.ActiveCfg = Release|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Release|x64.Build.0 = Release|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Release|x86.ActiveCfg = Release|Any CPU
-		{2378C946-DA1D-4B20-8BAE-B6FCCC508706}.Release|x86.Build.0 = Release|Any CPU
 		{3F619605-74C6-4068-B5C2-C8A50B1DFE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F619605-74C6-4068-B5C2-C8A50B1DFE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F619605-74C6-4068-B5C2-C8A50B1DFE38}.Debug|x64.ActiveCfg = Debug|Any CPU

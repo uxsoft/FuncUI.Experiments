@@ -40,6 +40,9 @@ type DSLBuilder<'t>() =
         match box child with
         | null -> x.Zero()
         | _ -> { Attributes = []; Children = [ child ] }
+        
+    member inline x.YieldFrom(arr: 'a seq) =
+        { Attributes = []; Children = arr |> Seq.map box |> Seq.toList }
     
     member inline this.Run(x: DSLElement<'t>) =
         ViewBuilder.Create<'t>(this.Flatten x)
