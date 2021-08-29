@@ -68,3 +68,5 @@ let label = TextBlock.TextBlockBuilder<TextBlock>()
 let textInput = TextBox.TextBoxBuilder<TextBox>()
 let accessText = AccessText.AccessTextBuilder<AccessText>()
 let toolTip = ToolTip.ToolTipBuilder<ToolTip>()
+
+let chart = Microcharts.Chart.ChartBuilder<Microcharts.ChartView.ChartView>()
