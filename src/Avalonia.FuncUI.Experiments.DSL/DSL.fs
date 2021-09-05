@@ -5,6 +5,7 @@ open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Shapes
 open Avalonia.FuncUI.Experiments.DSL
+open Avalonia.FuncUI.Experiments.DSL.ProgressBar
 
 let panel = Panel.PanelBuilder<Panel>()
 let canvas = Canvas.CanvasBuilder<Canvas>()
@@ -41,6 +42,9 @@ let treeViewItem = TreeViewItem.TreeViewItemBuilder<TreeViewItem>()
 let menu = Menu.MenuBuilder<Menu>()
 let menuItem = MenuItem.MenuItemBuilder<MenuItem>()
 let contextMenu = ContextMenu.ContextMenuBuilder<ContextMenu>()
+
+let slider = Slider.SliderBuilder<Slider>()
+let progressBar = ProgressBar.ProgressBarBuilder<ProgressBar>()
 
 let calendar = Calendar.CalendarBuilder<Calendar>()
 let calendarInput = CalendarDatePicker.CalendarDatePickerBuilder<CalendarDatePicker>()
