@@ -1,11 +1,11 @@
 ﻿namespace Avalonia.FuncUI.Experiments.TestApp
 
+open Avalonia.FuncUI.Hosts
 open Elmish
 open Avalonia
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.FuncUI
 open Avalonia.FuncUI.Elmish
-open Avalonia.FuncUI.Components.Hosts
 
 type MainWindow() as this =
     inherit HostWindow()

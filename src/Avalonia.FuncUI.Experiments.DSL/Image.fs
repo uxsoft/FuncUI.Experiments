@@ -11,8 +11,8 @@ type ImageBuilder<'t when 't :> Image>() =
     inherit ControlBuilder<'t>()
     
     [<CustomOperation("source")>]
-    member _.source<'t>(x: DSLElement<'t>, value: IBitmap) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IBitmap>(Image.SourceProperty, value, ValueNone) ]
+    member _.source<'t>(x: DSLElement<'t>, value: IImage) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<IImage>(Image.SourceProperty, value, ValueNone) ]
         
     [<CustomOperation("stretch")>]
     member _.stretch<'t>(x: DSLElement<'t>, value: Stretch) =

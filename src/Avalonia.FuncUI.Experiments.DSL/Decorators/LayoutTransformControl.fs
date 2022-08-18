@@ -10,9 +10,9 @@ type LayoutTransformControlBuilder<'t when 't :> LayoutTransformControl>() =
     inherit DecoratorBuilder<'t>()
     
     [<CustomOperation("layoutTransform")>]
-    member _.layoutTransform<'t>(x: DSLElement<'t>, value: Transform) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<Transform>(LayoutTransformControl.LayoutTransformProperty, value, ValueNone) ]
+    member _.layoutTransform<'t>(x: DSLElement<'t>, value: ITransform) =
+        x @@ [ AttrBuilder<'t>.CreateProperty(LayoutTransformControl.LayoutTransformProperty, value, ValueNone) ]
         
     [<CustomOperation("useRenderTransform")>]
     member _.useRenderTransform<'t>(x: DSLElement<'t>, value: bool) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(LayoutTransformControl.UseRenderTransformProperty, value, ValueNone) ]
+        x @@ [ AttrBuilder<'t>.CreateProperty(LayoutTransformControl.UseRenderTransformProperty, value, ValueNone) ]

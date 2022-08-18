@@ -27,8 +27,8 @@ type TabControlBuilder<'t when 't :> TabControl>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(TabControl.ContentTemplateProperty, value, ValueNone) ]
         
     [<CustomOperation("selectedContent")>]
-    member _.selectedContent<'t>(x: DSLElement<'t>, value: obj) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<obj>(TabControl.ContentTemplateProperty, value, ValueNone) ]
+    member _.selectedContent<'t>(x: DSLElement<'t>, value: IDataTemplate) =
+        x @@ [ AttrBuilder<'t>.CreateProperty(TabControl.ContentTemplateProperty, value, ValueNone) ]
         
     [<CustomOperation("onSelectedContentChanged")>]
     member _.onSelectedContentChanged<'t>(x: DSLElement<'t>, func: obj -> unit) =

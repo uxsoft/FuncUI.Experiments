@@ -42,11 +42,13 @@ type TrackBuilder<'t when 't :> Track>() =
     member _.thumb<'t, 'c when 't :> Track and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
         let prop = 
             match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.ThumbProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Track.ThumbProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Track.ThumbProperty, value, ValueNone)
+            | :? IView as view -> [ AttrBuilder<'t>.CreateContentSingle(Track.ThumbProperty, Some view) ]
+            | :? Thumb as thumb -> [ AttrBuilder<'t>.CreateProperty<Thumb>(Track.ThumbProperty, thumb, ValueNone) ]
+            | _ ->
+                printfn "Track.thumb value must be a Thumb"
+                []
         
-        x @@ [ prop ]
+        x @@ prop
     
     [<CustomOperation("ignoreThumbDragProperty")>]
     member _.ignoreThumbDragProperty<'t>(x: DSLElement<'t>, value: bool) =
@@ -56,18 +58,22 @@ type TrackBuilder<'t when 't :> Track>() =
     member _.increaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
         let prop = 
             match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.IncreaseButtonProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Track.IncreaseButtonProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Track.IncreaseButtonProperty, value, ValueNone)
+            | :? IView as view -> [ AttrBuilder<'t>.CreateContentSingle(Track.IncreaseButtonProperty, Some view) ]
+            | :? Avalonia.Controls.Button as button -> [ AttrBuilder<'t>.CreateProperty(Track.IncreaseButtonProperty, button, ValueNone) ]
+            | _ ->
+                printfn "Track.increaseButton value must be a Button"
+                []
         
-        x @@ [ prop ]
+        x @@ prop
         
     [<CustomOperation("decreaseButton")>] 
     member _.decreaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
         let prop = 
             match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.DecreaseButtonProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Track.DecreaseButtonProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Track.DecreaseButtonProperty, value, ValueNone)
+            | :? IView as view -> [ AttrBuilder<'t>.CreateContentSingle(Track.IncreaseButtonProperty, Some view) ]
+            | :? Avalonia.Controls.Button as button -> [ AttrBuilder<'t>.CreateProperty(Track.IncreaseButtonProperty, button, ValueNone) ]
+            | _ ->
+                printfn "Track.decreaseButton value must be a Button"
+                []
         
-        x @@ [ prop ]
+        x @@ prop

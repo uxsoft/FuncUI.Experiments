@@ -17,11 +17,13 @@ type PopupBuilder<'t when 't :> Popup>() =
     member _.child<'t, 'c when 't :> Track and 'c :> obj>(x: DSLElement<'t>, value: 'c) =
         let prop = 
             match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Popup.ChildProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Popup.ChildProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Popup.ChildProperty, value, ValueNone)
+            | :? IView as view -> [ AttrBuilder<'t>.CreateContentSingle(Popup.ChildProperty, Some view) ]
+            | :? Control as control -> [ AttrBuilder<'t>.CreateProperty(Popup.ChildProperty, control, ValueNone) ] 
+            | _ ->
+                printfn "Child of a Popup must be a Control"
+                []
         
-        x @@ [ prop ] 
+        x @@ prop 
 
     [<CustomOperation("isOpen")>] 
     member _.isOpen<'t>(x: DSLElement<'t>, value: bool) =
@@ -37,7 +39,7 @@ type PopupBuilder<'t when 't :> Popup>() =
 
     [<CustomOperation("placementAnchor")>] 
     member _.placementAnchor<'t>(x: DSLElement<'t>, value: PopupAnchor) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<PopupAnchor>(Popup.PlacementModeProperty, value, ValueNone) ]
+        x @@ [ AttrBuilder<'t>.CreateProperty<PopupAnchor>(Popup.PlacementAnchorProperty, value, ValueNone) ]
         
     [<CustomOperation("placementConstraintAdjustment")>] 
     member _.placementConstraintAdjustment<'t>(x: DSLElement<'t>, value: PopupPositionerConstraintAdjustment) =

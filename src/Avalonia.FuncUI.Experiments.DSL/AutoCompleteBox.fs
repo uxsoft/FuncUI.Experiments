@@ -73,13 +73,13 @@ type AutoCompleteBoxBuilder<'t when 't :> AutoCompleteBox>() =
         x @@ [ AttrBuilder<'t>.CreateProperty<AutoCompleteFilterMode>(AutoCompleteBox.FilterModeProperty, mode, ValueNone) ]
         
     [<CustomOperation("itemFilter")>] 
-    member _.itemFilter<'t>(x: DSLElement<'t>, filterFunc: string * obj -> bool) =
+    member _.itemFilter<'t>(x: DSLElement<'t>, filterFunc: string -> obj -> bool) =
         // TODO: implement custom comparer (value is a function)
         x @@ [ AttrBuilder<'t>.CreateProperty<_>(AutoCompleteBox.ItemFilterProperty, filterFunc, ValueNone) ]
         
     [<CustomOperation("textFilter")>] 
-    member _.textFilter<'t>(x: DSLElement<'t>, filter: string) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<string>(AutoCompleteBox.TextFilterProperty, filter, ValueNone) ]
+    member _.textFilter<'t>(x: DSLElement<'t>, filter: string -> obj -> bool) =
+        x @@ [ AttrBuilder<'t>.CreateProperty<_>(AutoCompleteBox.TextFilterProperty, filter, ValueNone) ]
         
     [<CustomOperation("dataItems")>] 
     member _.dataItems<'t>(x: DSLElement<'t>, items: IEnumerable) =

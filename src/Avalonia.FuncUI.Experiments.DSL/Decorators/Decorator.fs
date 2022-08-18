@@ -16,14 +16,13 @@ type DecoratorBuilder<'t when 't :> Decorator>() =
         | Some lastChild -> 
             let contentProp =
                 match lastChild with
-                | :? string as text ->
-                    AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, text, ValueNone)
-                | :? IView as view ->
-                    AttrBuilder<'t>.CreateContentSingle(Decorator.ChildProperty, Some view)
-                | other ->
-                    AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, other, ValueNone)
+                | :? IView as view -> [ AttrBuilder<'t>.CreateContentSingle(Decorator.ChildProperty, Some view) ]
+                | :? IControl as control -> [ AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, control, ValueNone) ]
+                | _ ->
+                    printfn "Child of a Decorator must be an IControl"
+                    []                    
         
-            x.Attributes @ [ contentProp ]
+            x.Attributes @ contentProp
         
     [<CustomOperation("padding")>]
     member _.padding<'t>(x: DSLElement<'t>, value: Thickness) =

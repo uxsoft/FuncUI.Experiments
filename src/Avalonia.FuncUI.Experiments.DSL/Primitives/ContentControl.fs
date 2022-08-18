@@ -18,7 +18,7 @@ type ContentControlBuilder<'t when 't :> ContentControl>() =
             let contentProp =
                 match lastChild with
                 | :? string as text ->
-                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, text, ValueNone)
+                    AttrBuilder<'t>.CreateProperty(ContentControl.ContentProperty, box text, ValueNone)
                 | :? IView as view ->
                     AttrBuilder<'t>.CreateContentSingle(ContentControl.ContentProperty, Some view)
                 | other ->

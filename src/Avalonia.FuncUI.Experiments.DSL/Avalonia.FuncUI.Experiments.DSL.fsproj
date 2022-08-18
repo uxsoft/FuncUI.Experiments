@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>uxsoft</Authors>
         <Product>uxsoft.Avalonia.FuncUI.CEDSL</Product>
@@ -75,7 +75,6 @@
         <Compile Include="Items\ContextMenu.fs" />
         <Compile Include="Ranges\Slider.fs" />
         <Compile Include="Ranges\ProgressBar.fs" />
-        <Compile Include="Components\LazyView.fs" />
         <Compile Include="Components\DataValidationErrors.fs" />
         <Compile Include="Calendar\Calendar.fs" />
         <Compile Include="Calendar\CalendarDatePicker.fs" />
@@ -114,9 +113,9 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="JaggerJo.Avalonia.FuncUI" Version="0.5.0-beta" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.6" />
-        <PackageReference Update="FSharp.Core" Version="5.0.2" />
+        <PackageReference Include="JaggerJo.Avalonia.FuncUI" Version="0.5.3" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
+        <PackageReference Update="FSharp.Core" Version="6.0.5" />
         <PackageReference Include="Microcharts" Version="0.9.5.9" />
     </ItemGroup>
 </Project>
